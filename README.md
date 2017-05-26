@@ -1,1 +1,1 @@
-# netjson-editor
+# netjson-editor.js

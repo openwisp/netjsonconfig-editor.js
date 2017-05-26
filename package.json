@@ -5,16 +5,23 @@
   "main": "index.js",
   "scripts": {
     "lint": "jshint --verbose src/js/**.js",
+    "minify": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "build": "npm-run-all build:*",
     "watch": "npm-run-all --parallel watch:*",
-    "build:copy-css": "cpx 'src/css/**/*.*' temp/css",
-    "watch:copy-css": "cpx 'src/css/**/*.*' temp/css --watch",
+    "build:copy-assets": "cpx 'src/css/**/*.*' temp/css",
+    "watch:copy-assets": "cpx 'src/css/**/*.*' temp/css --watch",
     "build:lint": "npm run lint",
     "watch:lint": "npm run lint",
     "build:browserify": "mkdir -p ./temp/js && browserify src/js/index.js -o temp/js/bundle.js",
-    "watch:browserify": "mkdir -p ./temp/js && watchify src/js/index.js -o temp/js/bundle.js",
+    "watch:browserify": "mkdir -p ./temp/js && watchify src/js/index.js -o temp/js/bundle.js -v",
     "build:babel": "babel temp -d build",
-    "watch:babel": "babel temp -d build",
+    "watch:babel": "babel temp -d build --watch",
+    "build:minify": "npm run minify",
+    "watch:minify": "npm run minify",
+    "start": "npm-run-all start:*",
+    "start:build": "npm run build",
+    "start:serve": "concurrently \"http-server\" \"npm run open\" ",
+    "open": "xdg-open http://localhost:8080/examples",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -45,13 +52,16 @@
     "jquery": "^3.2.1"
   },
   "devDependencies": {
-    "npm-run-all": "^4.0.0",
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.1",
     "browserify": "^3.8.0",
+    "concurrently": "^3.4.0",
     "cpx": "^1.5.0",
+    "http-server": "^0.10.0",
     "jshint": "latest",
     "mkdir": "*",
+    "npm-run-all": "^4.0.0",
+    "uglify-js": "^3.0.11",
     "watchify": "^3.8.0"
   }
 }
