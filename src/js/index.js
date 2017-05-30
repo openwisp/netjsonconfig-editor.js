@@ -1,6 +1,6 @@
 (function(){
 	"use strict";
-	 window.netjsonEditor = module.exports = () => {
-	 	// we are almost there
+	window.netjsonEditor = () => {
+	// we are almost there
 	};
 })();

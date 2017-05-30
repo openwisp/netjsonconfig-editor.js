@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 1,
+    "comma-spacing":1,
+    "no-console":0,
+    "indent": ["error", "tab"]
+  },
+  "parserOptions": {
+    "sourceType": "script",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+  	"require": true,
+  	"module": true
+  },
+  "env":{
+  	"browser":true
+  }
+}
