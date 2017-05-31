@@ -1,6 +1,16 @@
 (function(){
 	"use strict";
-	window.netjsonEditor = () => {
-	// we are almost there
-	};
+
+	let advancedModule = require('./advanced/index'),
+		$ = require('jquery');
+
+	class netjsonEditor{
+		constructor({target}){
+			this.targetElement = $(target);
+			this.targetElement.hide();
+
+			this.advancedEditor = new advancedModule({target});
+		}
+	}
+	window.netjsonEditor = module.exports = netjsonEditor;
 })();

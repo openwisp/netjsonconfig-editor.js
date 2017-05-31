@@ -1,0 +1,53 @@
+
+
+/*code for customizing interface*/
+
+/*section for advanced mode*/
+.jsoneditor-text-errors{ width: 100% !important }
+.jsoneditor-text-errors td:first-child{ padding-left: 15px !important }
+.jsoneditor-text-errors td:last-child{ padding-right: 15px !important }
+.jsoneditor-text-errors td{ vertical-align: middle !important }
+.jsoneditor-text-errors td button {
+    vertical-align: bottom !important;
+    margin-top: 1px !important;
+}
+.jsoneditor-text-errors td pre{ margin: 0 }
+
+.full-screen{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #ffffff;
+  width: 100%;
+  z-index: 9;
+}
+
+.editor-full{
+  overflow: hidden;
+}
+
+.field-config .screen-mode{
+  float: right;
+}
+
+.jsoneditor-menu label{
+  margin-left: 10px;
+  color: #fff !important;
+  line-height: 28px;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.jsoneditor-menu label a{
+  font-weight: bold;
+  color: #fff !important;
+}
+
+.advanced-mode{
+  height: 100%;
+}
+.advanced-mode .jsoneditor{
+  height: 100%;
+}
