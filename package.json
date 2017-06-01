@@ -12,6 +12,8 @@
     "watch:cat-css": "cat src/css/* > build/css/bundle.css ",
     "build:copy-assets": "cpx 'src/assets/**/*.*' build/assets",
     "watch:copy-assets": "cpx 'src/assets/**/*.*' build/assets --watch",
+    "build:css-assets": "cpx 'src/assets/css/**/*.*' build/css",
+    "watch:css-assets": "cpx 'src/assets/css/**/*.*' build/css",
     "build:lint": "npm run lint",
     "watch:lint": "npm run lint --watch",
     "build:browserify": "mkdir -p ./temp/js && browserify src/js/index.js -o temp/js/bundle.js",

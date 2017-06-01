@@ -4,97 +4,91 @@ $ = require('jquery');
 
 class advancedJSONEditor {
 
-  	constructor({target}) {
+  	constructor({target, schema, data, helpText, validate, onChange}) {
   		// set constant for advanced mode element id, to be uses all through.
   		this.advanced_el_id = "advanced_editor";
 
-  		// create advanced mode element with jQuery
+  		// create advanced mode element with jQuery and insert into the DOM
     	this.element = $(`
-    		<div class="advanced_editor_container">
+    		<div class="advanced_editor_container full-screen">
     			<div id='${this.advanced_el_id}' class="advanced-mode"></div>
     		</div>`);
 	    this.element.insertBefore($(target));
 
+	    // disable validation if not required
+	    schema = validate? schema: {};
+	    // build options for advanced mode
 	    let options = {
 	        mode:'code',
 	        theme: 'ace/theme/tomorrow_night_bright',
 	        indentation: 4,
-	        onEditable: function(node){
+	        onEditable: (node) => {
 	            return true;
 	        },
-	        onChange:function() {
-	           $(target).val(editor.getText())
+	        onChange: () => {
+	           $(target).val(this.editor.getText());
+	           onChange();
 	        },
-	        // schema: schema
+	        schema: schema
 	    }
 
-	    this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), options);
+	    this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), options, data);
 	    this.editor.aceEditor.setOptions({
 	        fontSize: 14,
 	        showInvisibles: true
 	    });
-	    this.render();
+	    this.render({helpText});
   	}
 
-  	render(){
+  	render({helpText}){
 		// remove powered by ace link
 	    this.element.find('.jsoneditor-menu a').remove();
-	    // add  listener to .screen-mode button for toggleScreenMode
-	    this.element.parents('.field-config').find('.screen-mode').click((e)=>{
-	    	this.toggleScreenMode();
-	    });
+
+	    let that = this;
+	    helpText = helpText? helpText:`Want learn to use the advanced mode? Consult the
+				    <a href="http://netjsonconfig.openwisp.org/en/stable/general/basics.html"
+				       target="_blank">netjsonconfig documentation
+				    </a>.`; 
+
 	    // add controls to the editor header
 	    this.element.find('.jsoneditor-menu')
 	        .append($(`<a href="javascript:;" class="jsoneditor-exit">
 		        			<img class="icon" src="../assets/img/icon-deletelink.svg" />
 		        			back to normal mode
 		        		</a>`
-		        	))
+		        	).click((e) => {
+		        		that.hide();
+		        	}))
 	        .append(`
 	        	<label id="netjsonconfig-hint">
-				    Want learn to use the advanced mode? Consult the
-				    <a href="http://netjsonconfig.openwisp.org/en/stable/general/basics.html"
-				       target="_blank">netjsonconfig documentation
-				    </a>.
+				   ${helpText}
 				</label>
 	        	`);
+        $('body').addClass('editor-full');
+
+        $(window).resize(function(){
+            this.element.height($(window).height()).width(window.outerWidth);
+        });
+
 	    this.show();
   	}
 
   	show(){
-  		this.toggleScreenMode(true);
+  		this.element.show();
   	}
 
   	hide(){
-  		this.toggleScreenMode(false);
+  		this.element.hide();
   	}
 
-  	toggleScreenMode(inFullScreenMode){
-        if(inFullScreenMode){
-            // store the old height and width of the editor before going to fullscreen mode in order to be able to restore them
-            let oldHeight = this.element.height();
-            let oldWidth = this.element.width();
-            this.element.addClass('full-screen').height($(window).height()).width(window.outerWidth);
-            $('body').addClass('editor-full');
-            $(window).resize(function(){
-                this.element.height($(window).height()).width(window.outerWidth);
-            });
-            inFullScreenMode = true;
-            this.element.find('.jsoneditor-menu a').show()
-            this.element.find('.jsoneditor-menu label').show()
-            window.scrollTo(0,0);
-        }
-        else{
-            this.element.removeClass('full-screen').height(oldHeight).width(oldWidth);
-            $('body').removeClass('editor-full');
-            // unbind all events listened to while going to full screen mode
-            $(window).unbind('resize');
-            this.inFullScreenMode = false;
-            document.getElementById('advanced_editor').scrollIntoView(true);
-            this.element.find('.jsoneditor-menu a').hide()
-            this.element.find('.jsoneditor-menu label').hide()
-        }
-  	}
+  	changeSchema(schema){
+		this.editor.setSchema(schema);
+	}
+
+	setJson(json){
+		this.editor.setJson(json);
+	}
+
 };
 
 module.exports = advancedJSONEditor;
