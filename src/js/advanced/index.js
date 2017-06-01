@@ -1,5 +1,5 @@
 let jsonEditor = require('jsoneditor'),
-theme = require('./themes/tomorrow_night_bright'),
+theme = require('../themes/tomorrow_night_bright'),
 $ = require('jquery');
 
 class advancedJSONEditor {
