@@ -4,7 +4,7 @@ $ = require('jquery');
 
 class advancedJSONEditor {
 
-  	constructor({target, schema, data, helpText, validate, onChange}) {
+  	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage}) {
   		// set constant for advanced mode element id, to be uses all through.
   		this.advanced_el_id = "advanced_editor";
 
@@ -15,7 +15,10 @@ class advancedJSONEditor {
     		</div>`);
 	    this.element.insertBefore($(target));
 
+	    // set message to be used to alertwrong json
+	    this.setJsonErrorMessage(jsonErrorMessage);
 	    // disable validation if not required
+	    this.validate = validate;
 	    schema = validate? schema: {};
 	    // build options for advanced mode
 	    let options = {
@@ -45,10 +48,6 @@ class advancedJSONEditor {
 	    this.element.find('.jsoneditor-menu a').remove();
 
 	    let that = this;
-	    helpText = helpText? helpText:`Want learn to use the advanced mode? Consult the
-				    <a href="http://netjsonconfig.openwisp.org/en/stable/general/basics.html"
-				       target="_blank">netjsonconfig documentation
-				    </a>.`; 
 
 	    // add controls to the editor header
 	    this.element.find('.jsoneditor-menu')
@@ -57,7 +56,7 @@ class advancedJSONEditor {
 		        			back to normal mode
 		        		</a>`
 		        	).click((e) => {
-		        		that.hide();
+		        		that.closeEditor();
 		        	}))
 	        .append(`
 	        	<label id="netjsonconfig-hint">
@@ -89,6 +88,31 @@ class advancedJSONEditor {
 		this.editor.setJson(json);
 	}
 
+	get schemaValid(){
+		return this.editor.validateSchema();
+	}
+
+	closeEditor(){
+		if(this.validate && this.schemaValid){
+			this.hide();
+		}else{
+			this.alertInvalidJSON();
+		}
+
+	}
+	/*
+	* Send an aler to indicate json entered is either invalid or does not match the schema
+	*/
+	alertInvalidJSON(){
+		alert(this.jsonErrorMessage);
+	}
+
+	/*
+	* set invalid json error message
+	*/
+	setJsonErrorMessage(jsonErrorMessage){
+		this.jsonErrorMessage = jsonErrorMessage;
+	}
 };
 
 module.exports = advancedJSONEditor;
