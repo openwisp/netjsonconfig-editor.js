@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix src/js/**.js ",
+    "hint": "jshint --verbose src/js/**.js ",
+    "lint": "eslint --fix src/js/**.js ",
     "minify": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "build": "npm-run-all build:*",
     "watch": "npm-run-all --parallel watch:*",
@@ -26,7 +28,7 @@
     "start:build": "npm run build",
     "start:serve": "concurrently \"http-server\" \"npm run open\" ",
     "open": "xdg-open http://localhost:8080/examples",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha-phantomjs testRunner.html"
   },
   "repository": {
     "type": "git",
@@ -54,19 +56,28 @@
   "homepage": "https://github.com/openwisp/netjsonconfig-editor.js#readme",
   "dependencies": {
     "jquery": "^3.2.1",
-    "jsoneditor": "^5.7.0"
+    "jsoneditor": "^5.7.0",
+    "liform-react": "^0.5.15",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0",
+    "redux-form": "^6.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^6.1.2",
     "babel-preset-env": "^1.5.1",
     "browserify": "^3.8.0",
+    "chai": "^4.0.2",
     "concurrently": "^3.4.0",
     "cpx": "^1.5.0",
     "eslint": "^3.19.0",
     "http-server": "^0.10.0",
     "jshint": "latest",
     "mkdir": "*",
+    "mocha": "^3.4.2",
+    "mocha-phantomjs": "^4.1.0",
     "npm-run-all": "^4.0.0",
     "uglify-js": "^3.0.11",
     "watchify": "^3.8.0"
