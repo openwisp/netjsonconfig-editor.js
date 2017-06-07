@@ -6,11 +6,16 @@
 
 	class netjsonEditor{
 		constructor({target, schema, data, helpText, validate, onChange, jsonError}){
+			target = target? target: "#netjsonconfig-area";
 			this.targetElement = $(target);
 			this.targetElement.hide();
 
+			schema = schema? schema: {};
+			this._schema = schema;
+
 			this.onChangeCb = onChange? onChange: ()=>{};
 			jsonError = jsonError? jsonError: "Json entered is invalid";
+			data = data? data: {};
 
 			onChange = () => {
 				this.changed(this.onChangeCb);
@@ -22,6 +27,7 @@
 				    </a>.`; 
 
 			this.initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError});
+			this.setJson(data);
 		}
 
 		initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
@@ -33,8 +39,10 @@
 		}
 
 		changeSchema(schema){
+			this._schema = schema;	
 			this.advancedEditor.changeSchema(schema);
 		}
+
 
 		get text(){
 			return this.targetElement.val();
@@ -42,6 +50,10 @@
 
 		get json(){
 			return JSON.parse(this.targetElement.val());
+		}
+
+		get schema(){
+			return this._schema;
 		}
 
 		setJson(json){

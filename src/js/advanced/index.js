@@ -34,16 +34,16 @@ class advancedJSONEditor {
 	        },
 	        schema: schema
 	    }
+	    this.render({helpText, options, data});
+  	}
 
+  	render({helpText, options, data}){
+	    
 	    this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), options, data);
 	    this.editor.aceEditor.setOptions({
 	        fontSize: 14,
 	        showInvisibles: true
 	    });
-	    this.render({helpText});
-  	}
-
-  	render({helpText}){
 		// remove powered by ace link
 	    this.element.find('.jsoneditor-menu a').remove();
 
@@ -85,7 +85,7 @@ class advancedJSONEditor {
 	}
 
 	setJson(json){
-		this.editor.setJson(json);
+		this.editor.set(json);
 	}
 
 	get schemaValid(){
