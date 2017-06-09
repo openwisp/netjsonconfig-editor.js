@@ -3,5 +3,5 @@ cache:
   directories:
     - "node_modules"
 sudo: false
-script:
-  - "npm run lint"
+before_install:
+  - npm run lint
