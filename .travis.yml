@@ -3,8 +3,5 @@ cache:
   directories:
     - "node_modules"
 sudo: false
-install:
-  - npm install eslint-changes
-script:
-  - ./node_modules/.bin/eslint-changes
-GITHUB_TOKEN: 17950c5dcb508ca76263fd3fde258aa5ab65b483
+before_install:
+  - npm run lint
