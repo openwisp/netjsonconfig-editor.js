@@ -2,7 +2,7 @@ let jsonEditor = require('jsoneditor'),
 theme = require('../themes/tomorrow_night_bright'),
 $ = require('jquery');
 
-class advancedJSONEditor {
+class AdvancedJSONEditor {
 
   	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage}) {
   		// set constant for advanced mode element id, to be uses all through.
@@ -115,4 +115,4 @@ class advancedJSONEditor {
 	}
 };
 
-module.exports = advancedJSONEditor;
+module.exports = AdvancedJSONEditor;

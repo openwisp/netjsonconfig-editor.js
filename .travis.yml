@@ -4,4 +4,4 @@ cache:
     - "node_modules"
 sudo: false
 before_install:
-  - npm run lint
+  - npm run hint
