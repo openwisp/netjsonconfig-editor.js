@@ -4,7 +4,7 @@ $ = require('jquery');
 
 class AdvancedJSONEditor {
 
-  	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage}) {
+  	constructor({target, schema, data, helpText, validate = true, onChange, jsonErrorMessage}) {
   		// set constant for advanced mode element id, to be uses all through.
   		this.advanced_el_id = "advanced_editor";
 
