@@ -3,5 +3,5 @@ cache:
   directories:
     - "node_modules"
 sudo: false
-# before_install:
-#   - npm run hint
+before_install:
+  - npm run hint
