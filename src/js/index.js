@@ -2,7 +2,8 @@
 	"use strict";
 
 	let AdvancedModule = require('./advanced/index'),
-		$ = require('jquery');
+		$ = require('jquery'),
+	BasicEditor = require('./basic/index');
 
 	class NetjsonEditor{
 		constructor({target, schema, data, helpText, validate, onChange, jsonError}){
@@ -27,11 +28,20 @@
 				    </a>.`; 
 
 			this.initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError});
+			this.initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError});
 			this.setJson(data);
 		}
 
 		initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
 			this.advancedEditor = new AdvancedModule({target, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError});
+		}
+
+		initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError}){
+			this.element = $(`
+    		<div id="basic_editor_container">
+    		</div>`);
+	    	this.element.insertBefore($(target));
+	    	this.basicEditor = new BasicEditor({target, helpText, data, schema, validate, onChange, jsonError});
 		}
 
 		changed(onChange){
