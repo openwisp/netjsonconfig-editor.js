@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test 2 for jsoneditor</title>
+	<link rel="stylesheet" type="text/css" href="../build/css/bundle.css">
+</head>
+<body>
+	<div class="content">
+		<textarea id="target"></textarea>
+	</div>
+</body>
+<script type="text/javascript" src="../build/js/bundle.js"></script>
+<script type="text/javascript">
+
+		var schema1 = {
+			    "title": "Person",
+			    "type": "object",
+			    "properties": {
+			        "firstName": {
+			            "type": "string"
+			        },
+			        "lastName": {
+			            "type": "string"
+			        },
+			        "age": {
+			            "description": "Age in years",
+			            "type": "integer",
+			            "minimum": 0
+			        }
+			    },
+			    "required": ["firstName", "lastName"]
+			};
+		var schema2 = {
+			    "$schema": "http://json-schema.org/draft-04/schema#",
+			    "title": "Product",
+			    "description": "A product from Acme's catalog",
+			    "type": "object"
+			}
+
+		var ee = new netjsonEditor(
+			{
+				target: "#target",
+				helpText: "Test for schema changing", 
+				data: {
+				    "Array": [1, 2, 3],
+				    "Boolean": true,
+				    "Null": null,
+				    "Number": 123,
+				    "Object": {"a": "b", "c": "d"},
+				    "String": "Hello World"
+				}, 
+				onChange: function(){
+					console.log('hello');
+				}, 
+				schema: schema1,
+				validate: true
+		});
+		var id = false;
+		window.setInterval(function(){
+			toggleSchema();
+		}, 5000);
+
+		function toggleSchema(){
+			if(id){
+				ee.changeSchema(schema1);
+			}else{
+				ee.changeSchema(schema2);
+			}
+			id = !id;
+		}
+
+		console.log(ee);
+</script>
+</html>

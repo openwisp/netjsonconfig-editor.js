@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Test 1 for jsoneditor</title>
+	<link rel="stylesheet" type="text/css" href="../build/css/bundle.css">
 </head>
 <body>
 	<div class="content">
@@ -10,6 +11,16 @@
 </body>
 <script type="text/javascript" src="../build/js/bundle.js"></script>
 <script type="text/javascript">
-		var ee = new netjsonEditor({hate: "hate", target: "target"});
+		var ee = new netjsonEditor(
+			{
+				target: "#target",
+				helpText: "No text here <b>oh there is</b>", 
+				data: {
+					man: "hello"
+				}, 
+				onChange: function(){
+					alert('hello');
+				}
+		});
 </script>
 </html>
