@@ -25,23 +25,27 @@ the various otpions available for the editor are as below. Default values will b
 ## Contribution
 	To contribute to this repo, please visit the community contribution guidelines
 
-### Setup
-	To setup this project for development do the following
+### Development Setup
+To setup this project for development do the following
 
-1. Fork and clone the repository locally.
-2. Enter the local project's root folder `cd path/to/project/root`
-3. Install javascript dependencies. run `npm install`
-4. you should be ready to go.
-5. Run `npm run build` to build the library and `npm run watch` to watch files for changes.
+1. Fork the repository.
+2. Clone the repository locally using `git clone`.
+3. Enter the local project's root folder `cd netjsonconfig-editor.js`
+4. Install javascript dependencies. run `npm install`
+5. You should be ready to go.
+6. Run `npm start` to start the development server to view any of the examples
+7. Run `npm run build` to build the library and `npm run watch` to watch files for changes.
+8. Run `npm run watch` to run a watch server to instantly build the javascript on change of any files.
 
 Visit [scripts section](#) to see full details on scripts to run for various actions during development
 
 ### Tests
-In order to run tests for the code written run the command 
-`npm run test`
-writing tests is an essential part of the project. All new features added to the editor need to be accompanied with appropriate tests, but also ensuring that tets written before do not fail. netjsonconfig-editor.js uses mocha js as the test framework, chaijs as the assertion library and phantomjs as the virtual DOM for command line tests To get started with tests, there are two options. 
-*short  or simple tests will be added to the `test/tests.js` file. 
-*larger or more complex tests will be added in new files in the `test/` folder and then loaded into the test runner by being included into the `testRunner.html` file through a script tag.
+In order to run tests for the code written run the command `npm run test`
+writing tests is an essential part of the project. All new features added to the editor need to be accompanied with appropriate tests, but also ensuring that tets written before do not fail. 
+netjsonconfig-editor.js uses mocha js as the test framework, chaijs as the assertion library and phantomjs as the virtual DOM for command line tests To get started with tests, there are two options. 
+1. short  or simple tests will be added to the `test/tests.js` file. 
+2. larger or more complex tests will be added in new files in the `test/` folder and then loaded into the test runner by being included into the `testRunner.html` file through a script tag. like: `<script src="test/tests.js"></script>`
+
 
 ### Examples
 In order visualize the various features of teh editor during development, various examples are added. Each example is used to show one or more features on within the browser. examples are html files and are stored in the `examples/` folder at the root of the project.
