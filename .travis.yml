@@ -6,3 +6,6 @@ sudo: false
 before_install:
   - npm install jshint
   - npm run hint
+after_script:
+  - npm build
+  - npm test
