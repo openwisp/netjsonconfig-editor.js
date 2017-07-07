@@ -14,12 +14,17 @@
 			schema = schema? schema: {};
 			this._schema = schema;
 
-			this.onChangeCb = onChange? onChange: ()=>{};
+			validate = !validate? false: true;
+
+			let onChangeCb = onChange? onChange: ()=>{};
+
 			jsonError = jsonError? jsonError: "Json entered is invalid";
+
 			data = data? data: {};
 
-			onChange = () => {
-				this.changed(this.onChangeCb);
+
+			onChange = (data) => {
+				this.changed(onChangeCb, data);
 			};
 			
 			helpText = helpText? helpText:`Want learn to use the advanced mode? Consult the
@@ -27,13 +32,16 @@
 				       target="_blank">netjsonconfig documentation
 				    </a>.`; 
 
+			this.props = {target, helpText, data, schema, validate, onChange, jsonError};
+			
 			this.initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError});
 			this.initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError});
-			this.setJson(data);
+			// this.setJson(data);
 		}
 
 		initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
-			this.advancedEditor = new AdvancedModule({target, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError});
+
+			this.advancedEditor = new AdvancedModule({target, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError, swapOut: () => this.showBasiceEditor() });
 		}
 
 		initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError}){
@@ -41,19 +49,29 @@
     		<div id="basic_editor_container">
     		</div>`);
 	    	this.element.insertBefore($(target));
-	    	this.basicEditor = new BasicEditor({target, helpText, data, schema, validate, onChange, jsonError});
+	    	this.basicEditor = new BasicEditor({target, helpText, data, schema, validate, onChange, jsonError, container: "basic_editor_container", swapOut: () => this.showAdvancedEditor() });
 		}
 
-		changed(onChange){
+		changed(onChange, data){
+			console.log(data);
+			this.targetElement.val(JSON.stringify(data));
 			onChange();
 		}
 
 		changeSchema(schema){
 			this._schema = schema;	
 			this.advancedEditor.changeSchema(schema);
+			this.basicEditor.setSchema(schema);
 		}
 
+		showAdvancedEditor(){
+			this.setJson(JSON.parse(this.targetElement.val()));
+			this.advancedEditor.show();
+		}
 
+		showBasiceEditor(){
+			this.setJson(JSON.parse(this.targetElement.val()));
+		}
 		get text(){
 			return this.targetElement.val();
 		}
@@ -69,6 +87,8 @@
 		setJson(json){
 			this.targetElement.val(JSON.stringify(json));
 			this.advancedEditor.setJson(json);
+			this.props.data = json;
+			this.basicEditor.reInit(json);
 		}
 
 	}

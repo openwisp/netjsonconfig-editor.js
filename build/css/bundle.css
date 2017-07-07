@@ -989,3 +989,58 @@ table.jsoneditor-search button.jsoneditor-previous:hover {
 .advanced-mode .jsoneditor{
   height: 100%;
 }
+
+
+.hidden{
+  display: none;
+}
+.padding{
+	padding: 20px;
+}
+
+.basic-header{
+	min-height: 50px;
+    background: #df5d43;
+    width: 100%;
+    border: 1px solid #e25438;
+    padding: 10px;
+}
+
+.basic-editor{
+	padding: 10px;
+}
+
+.basic-header .name{
+	width: 20%;
+	height: 100%;
+	display: inline-block;
+	color: #fff;
+	font-size: 15pt;
+	font-weight: bold;
+}
+
+.basic-header .label{
+	width: 60%;
+	font-size: 10pt;
+	display: inline-block;
+}
+
+.basic-header .label a{
+	cursor: pointer;
+}
+.basic-header .advanced-button-container{
+	width: 20%;
+	display: inline-block;
+	text-align: left;
+
+}
+
+.advanced-button{
+	background: #5e6569;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+

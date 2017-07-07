@@ -4,7 +4,7 @@ $ = require('jquery');
 
 class AdvancedJSONEditor {
 
-  	constructor({target, schema, data, helpText, validate = true, onChange, jsonErrorMessage}) {
+  	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage, swapOut}) {
   		// set constant for advanced mode element id, to be uses all through.
   		this.advanced_el_id = "advanced_editor";
 
@@ -15,10 +15,12 @@ class AdvancedJSONEditor {
     		</div>`);
 	    this.element.insertBefore($(target));
 
+	    this.swapOut = swapOut;
 	    // set message to be used to alertwrong json
 	    this.setJsonErrorMessage(jsonErrorMessage);
 	    // disable validation if not required
 	    this.validate = validate;
+
 	    schema = validate? schema: {};
 	    // build options for advanced mode
 	    let options = {
@@ -29,8 +31,13 @@ class AdvancedJSONEditor {
 	            return true;
 	        },
 	        onChange: () => {
-	           $(target).val(this.editor.getText());
-	           onChange();
+	        	try{
+			 		if(this.schemaValid){
+		           		onChange(this.editor.get());
+			 		}
+	        	}catch(err){
+
+	        	}
 	        },
 	        schema: schema
 	    }
@@ -63,20 +70,23 @@ class AdvancedJSONEditor {
 				   ${helpText}
 				</label>
 	        	`);
-        $('body').addClass('editor-full');
 
         $(window).resize(function(){
-            this.element.height($(window).height()).width(window.outerWidth);
+            that.element.height($(window).height()).width(window.outerWidth);
         });
 
-	    this.show();
+        window.scrollTo(0,0);
+  		this.element.hide();
   	}
 
   	show(){
+        $('body').addClass('editor-full');
   		this.element.show();
   	}
 
   	hide(){
+  		this.swapOut();
+        $('body').removeClass('editor-full');
   		this.element.hide();
   	}
 
@@ -89,10 +99,11 @@ class AdvancedJSONEditor {
 	}
 
 	get schemaValid(){
-		return this.editor.validateSchema();
+		return this.editor.validateSchema(this.editor.get());
 	}
 
 	closeEditor(){
+		console.log(this.schemaValid);
 		if(this.validate && this.schemaValid){
 			this.hide();
 		}else{
