@@ -66,13 +66,6 @@ class BasicBody extends React.Component {
 		this.store.dispatch(initialize(name, data));
 		// this.store.dispatch(reset(name));
 	}
-
-	setSchema(schema){
-		console.log(schema);
-		this.store.dispatch(setSchema(schema));
-		this.store.dispatch(setBodyKey(Date.now()));
-	}
-
 }
 
 export default BasicBody;

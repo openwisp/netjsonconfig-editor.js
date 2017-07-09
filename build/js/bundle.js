@@ -99183,10 +99183,8 @@ var App = function (_React$Component) {
 				{ className: 'basic-editor' },
 				_react2.default.createElement(Header, { helpText: this.props.helpText, swapOut: this.props.swapOut }),
 				_react2.default.createElement(_body2.default, { schema: this.props.schema, data: this.props.data, ref: function ref(instance) {
-						_this2.reInit = function (data) {
+						return _this2.reInit = function (data) {
 							return instance.reInit(data);
-						};_this2.setSchema = function (data) {
-							return instance.setSchema(data);
 						};
 					}, onChange: this.props.onChange })
 			);
@@ -99343,13 +99341,6 @@ var BasicBody = function (_React$Component) {
 			this.store.dispatch((0, _reduxForm.initialize)(name, data));
 			// this.store.dispatch(reset(name));
 		}
-	}, {
-		key: 'setSchema',
-		value: function setSchema(schema) {
-			console.log(schema);
-			this.store.dispatch((0, _actions.setSchema)(schema));
-			this.store.dispatch((0, _actions.setBodyKey)(Date.now()));
-		}
 	}]);
 
 	return BasicBody;
@@ -99413,7 +99404,7 @@ var BasicEditor = function () {
 			var dest = document.getElementById(container);
 
 			_reactDom2.default.render(_react2.default.createElement(_app2.default, { schema: schema, data: data, onChange: onChange, ref: function ref(instance) {
-					_this.reInit = instance.reInit;_this.setSchema = instance.setSchema;
+					_this.reInit = instance.reInit;
 				}, helpText: helpText, swapOut: swapOut }), dest);
 		}
 	}]);

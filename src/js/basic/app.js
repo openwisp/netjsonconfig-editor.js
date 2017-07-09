@@ -11,7 +11,7 @@ class App extends React.Component {
 	render() {
 	    return  <div className="basic-editor"> 
 		    		<Header helpText={this.props.helpText}  swapOut={this.props.swapOut} />
-		    		<BasicBody schema={this.props.schema} data={this.props.data} ref={ instance => {this.reInit = (data) => instance.reInit(data); this.setSchema = (data) => instance.setSchema(data); } } onChange={this.props.onChange}/>
+		    		<BasicBody schema={this.props.schema} data={this.props.data} ref={ instance => this.reInit = (data) => instance.reInit(data) } onChange={this.props.onChange}/>
 	    	    </div>;
 	}
 }
