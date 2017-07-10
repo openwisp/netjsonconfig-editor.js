@@ -36,7 +36,7 @@
 			
 			this.initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError});
 			this.initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError});
-			// this.setJson(data);
+			this.setJson(data);
 		}
 
 		initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
@@ -61,7 +61,7 @@
 		changeSchema(schema){
 			this._schema = schema;	
 			this.advancedEditor.changeSchema(schema);
-			this.basicEditor.setSchema(schema);
+			this.basicEditor.setSchema(schema, this.json);
 		}
 
 		showAdvancedEditor(){
@@ -88,7 +88,7 @@
 			this.targetElement.val(JSON.stringify(json));
 			this.advancedEditor.setJson(json);
 			this.props.data = json;
-			this.basicEditor.reInit(json);
+			this.basicEditor.setData(json);
 		}
 
 	}

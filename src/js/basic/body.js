@@ -49,8 +49,11 @@ class BasicBody extends React.Component {
 		this.store.subscribe(()=>{
 			// this.setState(this.store.getState());
 			this.schema = this.state.schema;
-			let values = this.store.getState().form[this.state.schema.title || "form"].values;
-			this.state.onChange(values);
+			let values = this.store.getState().form[this.state.schema.title || "form"];
+			if(values){
+				values = values.values;
+				this.state.onChange(values);
+			}
 			// console.log(values);
 		});
 	}
@@ -64,7 +67,6 @@ class BasicBody extends React.Component {
 	reInit(data){
 		let name = this.props.schema.title || "form";
 		this.store.dispatch(initialize(name, data));
-		// this.store.dispatch(reset(name));
 	}
 }
 

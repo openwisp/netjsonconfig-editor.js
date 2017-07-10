@@ -6,18 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="../build/css/bundle.css">
 </head>
 <body>
-	<div class="row">
-		<div class="col-sm-6">
-			<pre>
-				{
-			        'type':'object',
-			        'properties': {
-			            'username': { 'type':'string', 'title': 'Username' },
-			            'password': { 'type':'string', 'title': 'Password', 'widget': 'password' },
-			            'email': { 'type':'string', 'format': 'email', 'title': 'E-mail', 'widget': 'email' },
-			        }
-			    }	
-			</pre>
+	<div class="container">
+		<div class="text-center">
 			<button class="btn" onclick="setSchema()">Set Schema</button>
 		</div>
 	</div>
@@ -2454,8 +2444,12 @@
 				validate: true
 		});
 
+		var i = 0;
 		var setSchema = function() {
-			ee.changeSchema(schema2);
+			if(++i%2==0)
+				ee.changeSchema(schema1);
+			else
+				ee.changeSchema(schema2)
 		}
 
 		console.log(ee);

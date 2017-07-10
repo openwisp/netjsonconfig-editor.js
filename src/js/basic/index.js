@@ -12,7 +12,7 @@ class BasicEditor {
 		const dest = document.getElementById(container)
 
 		ReactDOM.render(
-		    <App schema={schema} data={data} onChange={onChange} ref={ instance => {this.reInit = instance.reInit} } helpText={helpText} swapOut={swapOut}/>,
+		    <App schema={schema} data={data} onChange={onChange} ref={ instance => {this.setData = (data) => instance.setData(data); this.setSchema = (schema, data) => {instance.setSchema(schema, data)}} } helpText={helpText} swapOut={swapOut}/>,
 		    dest
 		)
 	}

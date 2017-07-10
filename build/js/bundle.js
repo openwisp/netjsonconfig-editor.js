@@ -99170,10 +99170,36 @@ var App = function (_React$Component) {
 	function App(props) {
 		_classCallCheck(this, App);
 
-		return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+		_this.state = {
+			schema: props.schema,
+			key: Date.now(),
+			data: props.data
+		};
+		return _this;
 	}
 
 	_createClass(App, [{
+		key: 'setSchema',
+		value: function setSchema(schema, data) {
+			this.setState({
+				schema: schema,
+				key: Date.now(),
+				data: data
+			});
+
+			console.log(this.state);
+		}
+	}, {
+		key: 'setData',
+		value: function setData(data) {
+			this.setState({
+				data: data
+			});
+			this.__reInit(data);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -99182,8 +99208,8 @@ var App = function (_React$Component) {
 				'div',
 				{ className: 'basic-editor' },
 				_react2.default.createElement(Header, { helpText: this.props.helpText, swapOut: this.props.swapOut }),
-				_react2.default.createElement(_body2.default, { schema: this.props.schema, data: this.props.data, ref: function ref(instance) {
-						return _this2.reInit = function (data) {
+				_react2.default.createElement(_body2.default, { schema: this.state.schema, key: this.state.key, data: this.state.data, ref: function ref(instance) {
+						return _this2.__reInit = function (data) {
 							return instance.reInit(data);
 						};
 					}, onChange: this.props.onChange })
@@ -99320,8 +99346,11 @@ var BasicBody = function (_React$Component) {
 			this.store.subscribe(function () {
 				// this.setState(this.store.getState());
 				_this2.schema = _this2.state.schema;
-				var values = _this2.store.getState().form[_this2.state.schema.title || "form"].values;
-				_this2.state.onChange(values);
+				var values = _this2.store.getState().form[_this2.state.schema.title || "form"];
+				if (values) {
+					values = values.values;
+					_this2.state.onChange(values);
+				}
 				// console.log(values);
 			});
 		}
@@ -99339,7 +99368,6 @@ var BasicBody = function (_React$Component) {
 		value: function reInit(data) {
 			var name = this.props.schema.title || "form";
 			this.store.dispatch((0, _reduxForm.initialize)(name, data));
-			// this.store.dispatch(reset(name));
 		}
 	}]);
 
@@ -99404,7 +99432,11 @@ var BasicEditor = function () {
 			var dest = document.getElementById(container);
 
 			_reactDom2.default.render(_react2.default.createElement(_app2.default, { schema: schema, data: data, onChange: onChange, ref: function ref(instance) {
-					_this.reInit = instance.reInit;
+					_this.setData = function (data) {
+						return instance.setData(data);
+					};_this.setSchema = function (schema, data) {
+						instance.setSchema(schema, data);
+					};
 				}, helpText: helpText, swapOut: swapOut }), dest);
 		}
 	}]);
@@ -99501,7 +99533,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 			this.initAdvancedEditor({ target: target, helpText: helpText, data: data, schema: schema, validate: validate, onChange: onChange, jsonError: jsonError });
 			this.initBasicEditor({ target: target, helpText: helpText, data: data, schema: schema, validate: validate, onChange: onChange, jsonError: jsonError });
-			// this.setJson(data);
+			this.setJson(data);
 		}
 
 		_createClass(NetjsonEditor, [{
@@ -99553,7 +99585,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			value: function changeSchema(schema) {
 				this._schema = schema;
 				this.advancedEditor.changeSchema(schema);
-				this.basicEditor.setSchema(schema);
+				this.basicEditor.setSchema(schema, this.json);
 			}
 		}, {
 			key: 'showAdvancedEditor',
@@ -99572,7 +99604,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				this.targetElement.val(JSON.stringify(json));
 				this.advancedEditor.setJson(json);
 				this.props.data = json;
-				this.basicEditor.reInit(json);
+				this.basicEditor.setData(json);
 			}
 		}, {
 			key: 'text',
