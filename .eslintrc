@@ -7,16 +7,27 @@
     "indent": ["error", "tab"]
   },
   "parserOptions": {
-    "sourceType": "script",
+    "sourceType": "module",
     "allowImportExportEverywhere": false,
-    "codeFrame": false
+    "codeFrame": false,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "spread" : true,
+      "restParams" : true
+    }
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "globals": {
   	"require": true,
   	"module": true
   },
   "env":{
-  	"browser":true
-  }
+  	"es6": true,        // We are writing ES6 code
+    "browser": true,    // for the browser
+    "commonjs": true    // and use require() for stylesheets
+  },
+  "plugins": [
+    "react"
+  ]
 }

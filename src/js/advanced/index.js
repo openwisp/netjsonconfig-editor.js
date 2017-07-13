@@ -1,96 +1,97 @@
+
 let jsonEditor = require('jsoneditor'),
-theme = require('../themes/tomorrow_night_bright'),
-$ = require('jquery');
+	$ = require('jquery');
+
+require('../themes/tomorrow_night_bright');
 
 class AdvancedJSONEditor {
+	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage, swapOut}) {
+		// set constant for advanced mode element id, to be uses all through.
+		this.advanced_el_id = "advanced_editor";
 
-  	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage, swapOut}) {
-  		// set constant for advanced mode element id, to be uses all through.
-  		this.advanced_el_id = "advanced_editor";
+		// create advanced mode element with jQuery and insert into the DOM
+		this.element = $(`
+			<div class="advanced_editor_container full-screen">
+				<div id='${this.advanced_el_id}' class="advanced-mode"></div>
+			</div>`);
+		this.element.appendTo($(target));
 
-  		// create advanced mode element with jQuery and insert into the DOM
-    	this.element = $(`
-    		<div class="advanced_editor_container full-screen">
-    			<div id='${this.advanced_el_id}' class="advanced-mode"></div>
-    		</div>`);
-	    this.element.insertBefore($(target));
+		this.swapOut = swapOut;
+		// set message to be used to alertwrong json
+		this.setJsonErrorMessage(jsonErrorMessage);
+		// disable validation if not required
+		this.validate = validate;
 
-	    this.swapOut = swapOut;
-	    // set message to be used to alertwrong json
-	    this.setJsonErrorMessage(jsonErrorMessage);
-	    // disable validation if not required
-	    this.validate = validate;
+		schema = validate? schema: {};
+		// build options for advanced mode
+		let options = {
+			mode:'code',
+			theme: 'ace/theme/tomorrow_night_bright',
+			indentation: 4,
+			onEditable: () => {
+				return true;
+			},
+			onChange: () => {
+				try{
+					if(this.schemaValid){
+						onChange(this.editor.get());
+					}
+				}catch(err){
+					return err;
+				}
+			},
+			schema: schema
+		}
+		this.render({helpText, options, data});
+	}
 
-	    schema = validate? schema: {};
-	    // build options for advanced mode
-	    let options = {
-	        mode:'code',
-	        theme: 'ace/theme/tomorrow_night_bright',
-	        indentation: 4,
-	        onEditable: (node) => {
-	            return true;
-	        },
-	        onChange: () => {
-	        	try{
-			 		if(this.schemaValid){
-		           		onChange(this.editor.get());
-			 		}
-	        	}catch(err){
+	render({helpText, options, data}){
 
-	        	}
-	        },
-	        schema: schema
-	    }
-	    this.render({helpText, options, data});
-  	}
+		this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), options, data);
+		this.editor.aceEditor.setOptions({
+			fontSize: 14,
+			showInvisibles: true
+		});
 
-  	render({helpText, options, data}){
-	    
-	    this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), options, data);
-	    this.editor.aceEditor.setOptions({
-	        fontSize: 14,
-	        showInvisibles: true
-	    });
 		// remove powered by ace link
-	    this.element.find('.jsoneditor-menu a').remove();
+		this.element.find('.jsoneditor-menu a').remove();
 
-	    let that = this;
+		let that = this;
 
-	    // add controls to the editor header
-	    this.element.find('.jsoneditor-menu')
-	        .append($(`<a href="javascript:;" class="jsoneditor-exit">
-		        			<img class="icon" src="../assets/img/icon-deletelink.svg" />
-		        			back to normal mode
-		        		</a>`
-		        	).click((e) => {
-		        		that.closeEditor();
-		        	}))
-	        .append(`
-	        	<label id="netjsonconfig-hint">
-				   ${helpText}
+		// add controls to the editor header
+		this.element.find('.jsoneditor-menu')
+			.append($(`<a href="javascript:;" class="jsoneditor-exit">
+							back to normal mode
+						</a>`
+				).click(() => {
+					that.closeEditor();
+				}))
+			.append(`
+				<label id="netjsonconfig-hint">
+					${helpText}
 				</label>
-	        	`);
+		`);
 
-        $(window).resize(function(){
-            that.element.height($(window).height()).width(window.outerWidth);
-        });
+		$(window).resize(function(){
+			that.element.height($(window).height()).width(window.outerWidth);
+		});
 
-        window.scrollTo(0,0);
-  		this.element.hide();
-  	}
+		window.scrollTo(0, 0);
+		this.element.hide();
+	}
 
-  	show(){
-        $('body').addClass('editor-full');
-  		this.element.show();
-  	}
+	show(){
+		$('body').addClass('editor-full');
+		this.element.show();
+	}
 
-  	hide(){
-  		this.swapOut();
-        $('body').removeClass('editor-full');
-  		this.element.hide();
-  	}
+	hide(){
+		this.swapOut();
+		$('body').removeClass('editor-full');
+		this.element.hide();
+	}
 
-  	changeSchema(schema){
+	changeSchema(schema){
 		this.editor.setSchema(schema);
 	}
 
@@ -124,6 +125,6 @@ class AdvancedJSONEditor {
 	setJsonErrorMessage(jsonErrorMessage){
 		this.jsonErrorMessage = jsonErrorMessage;
 	}
-};
+}
 
 module.exports = AdvancedJSONEditor;

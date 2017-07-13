@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { reducer as formReducer, initialize } from 'redux-form';
 import { Provider } from 'react-redux';
@@ -7,11 +6,12 @@ import Liform from 'liform-react';
 import {renderField, DefaultTheme} from "liform-react";
 import {setSchema, setOnChange, setBodyKey} from './actions';
 import {schemaReducer, onChangeReducer, bodyKeyReducer} from './reducers';
+import PropTypes from 'prop-types';
 
 
 const MyBaseForm = props => {
-    const { schema, handleSubmit, theme, error, submitting } = props
-    return (
+	const { schema, theme, error } = props
+	return (
         <div className="padding">
             <div>
                 {error && <strong>{error}</strong>}
@@ -28,10 +28,10 @@ class BasicBody extends React.Component {
 		super(props);
 
 		const reducer = combineReducers({
-		  form: formReducer,
-		  schema: schemaReducer,
-		  onChange: onChangeReducer,
-		  bodyKey: bodyKeyReducer
+			form: formReducer,
+			schema: schemaReducer,
+			onChange: onChangeReducer,
+			bodyKey: bodyKeyReducer
 		});
 		
 		const store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer);
@@ -59,9 +59,9 @@ class BasicBody extends React.Component {
 	}
 
 	render() {
-	    return (<Provider store={this.store}>
-	   		        <Liform schema={this.schema} key={this.state.bodyKey} initialValues={this.props.data} baseForm={MyBaseForm}/>
-	    		</Provider>);
+		return (<Provider store={this.store}>
+					<Liform schema={this.schema} key={this.state.bodyKey} initialValues={this.props.data} baseForm={MyBaseForm}/>
+				</Provider>);
 	}
 
 	reInit(data){
@@ -70,4 +70,19 @@ class BasicBody extends React.Component {
 	}
 }
 
+MyBaseForm.propTypes = {
+	schema: PropTypes.object,
+	error: PropTypes.object,
+	theme: PropTypes.array
+}
+
+BasicBody.propTypes = {
+	schema: PropTypes.object,
+	onChange: PropTypes.func,
+	data: PropTypes.object,
+
+
+}
+
 export default BasicBody;
+export {MyBaseForm};

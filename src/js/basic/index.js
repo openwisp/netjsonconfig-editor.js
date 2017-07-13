@@ -8,13 +8,13 @@ class BasicEditor {
 		this.render({target, schema, data, helpText, validate, onChange, jsonError, container, swapOut});
 	}
 
-	render({target, schema, data, helpText, validate, onChange, jsonError, container, swapOut}){
-		const dest = document.getElementById(container)
+	render({schema, data, helpText, onChange, jsonError, container, swapOut}){
+		const dest = document.getElementById(container);
 
 		ReactDOM.render(
-		    <App schema={schema} data={data} onChange={onChange} ref={ instance => {this.setData = (data) => instance.setData(data); this.setSchema = (schema, data) => {instance.setSchema(schema, data)}} } helpText={helpText} swapOut={swapOut}/>,
-		    dest
-		)
+			<App schema={schema} data={data} jsonError={jsonError} onChange={onChange} ref={ instance => {this.setData = (data) => instance.setData(data); this.setSchema = (schema, data) => {instance.setSchema(schema, data)}} } helpText={helpText} swapOut={swapOut}/>,
+			dest
+		);
 	}
 }
 

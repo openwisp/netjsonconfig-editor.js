@@ -1,5 +1,6 @@
 import React from 'react';
 import BasicBody from './body';
+import PropTypes from 'prop-types';
 
 
 class App extends React.Component {
@@ -31,10 +32,10 @@ class App extends React.Component {
 	}
 
 	render() {
-	    return  <div className="basic-editor"> 
-		    		<Header helpText={this.props.helpText}  swapOut={this.props.swapOut} />
-		    		<BasicBody schema={this.state.schema} key={this.state.key} data={this.state.data} ref={ instance => this.__reInit = (data) => instance.reInit(data) } onChange={this.props.onChange}/>
-	    	    </div>;
+		return  <div className="basic-editor"> 
+					<Header helpText={this.props.helpText}  swapOut={this.props.swapOut} />
+					<BasicBody schema={this.state.schema} key={this.state.key} data={this.state.data} ref={ instance => this.__reInit = (data) => instance.reInit(data) } onChange={this.props.onChange}/>
+				</div>;
 	}
 }
 
@@ -44,12 +45,25 @@ const Header = props => {
 					Editor Name Here
 				</div>
 				<div className="label helpText">
-					<label className="netjsonconfig-hint" dangerouslySetInnerHTML={{__html: props.helpText}}>
-					</label>
+					<label className="netjsonconfig-hint" dangerouslySetInnerHTML={{__html: props.helpText}} />
 				</div>
 				<div className="advanced-button-container">
-					<button className="advanced-button" onClick={ e => { props.swapOut() } }>Advanced Mode</button>
+					<button className="advanced-button" onClick={ () => { props.swapOut() } }>Advanced Mode</button>
 				</div>
-			 </div>);
+			</div>);
+}
+
+App.propTypes = {
+	schema: PropTypes.object,
+	data: PropTypes.object,
+	onChange: PropTypes.func,
+	helpText: PropTypes.string,
+	jsonError: PropTypes.string,
+	swapOut: PropTypes.func
+};
+
+Header.propTypes = {
+	helpText: PropTypes.string,
+	swapOut: PropTypes.func
 }
 export default App;

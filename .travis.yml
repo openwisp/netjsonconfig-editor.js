@@ -4,4 +4,7 @@ cache:
     - "node_modules"
 sudo: false
 before_install:
+  - npm install jshint
   - npm run hint
+after_script:
+  - npm run test
