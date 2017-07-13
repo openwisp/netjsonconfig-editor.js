@@ -1,67 +1,79 @@
-(function(){
-	"use strict";
+"use strict";
+let AdvancedEditor = require('./advanced/index'),
+	$ = require('jquery');
 
-	let AdvancedModule = require('./advanced/index'),
-		$ = require('jquery');
+require("../css/index.less");
 
-	class NetjsonEditor{
-		constructor({target, schema, data, helpText, validate, onChange, jsonError}){
-			target = target? target: "#netjsonconfig-area";
-			this.targetElement = $(target);
-			this.targetElement.hide();
+class NetjsonEditor{
+	constructor({target, schema, data, helpText, validate, onChange, jsonError}){
+		let props = {target, data};
+		console.log({...props});
 
-			schema = schema? schema: {};
-			this._schema = schema;
+		target = target? target: "#netjsonconfig-area";
+		this.targetElement = $(target);
+		this.targetElement.hide();
 
-			this.onChangeCb = onChange? onChange: ()=>{};
-			jsonError = jsonError? jsonError: "Json entered is invalid";
-			data = data? data: {};
+		schema = schema? schema: {};
+		this._schema = schema;
 
-			onChange = () => {
-				this.changed(this.onChangeCb);
-			};
-			
-			helpText = helpText? helpText:`Want learn to use the advanced mode? Consult the
-				    <a href="http://netjsonconfig.openwisp.org/en/stable/general/basics.html"
-				       target="_blank">netjsonconfig documentation
-				    </a>.`; 
+		this.onChangeCb = onChange? onChange: ()=>{};
+		jsonError = jsonError? jsonError: "Json entered is not Valid";
+		data = data? data: {};
 
-			this.initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError});
-			this.setJson(data);
-		}
+		onChange = () => {
+			this.changed(this.onChangeCb);
+		};
+		
+		helpText = helpText? helpText:`Want learn to use the advanced mode? Consult the
+			    <a href="http://netjsonconfig.openwisp.org/en/stable/general/basics.html"
+			       target="_blank">netjsonconfig documentation
+			    </a>.`; 
 
-		initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
-			this.advancedEditor = new AdvancedModule({target, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError});
-		}
+		this.render({target, helpText, data, schema, validate, onChange, jsonError});
+		this.setJson(data);
+	}
 
-		changed(onChange){
-			onChange();
-		}
+	render({helpText, data, schema, validate, onChange, jsonError}){
+		this.container = $(`
+				<div class="netjsonconfig-editor"></div>
+			`);
+		this.container.insertBefore($(this.targetElement));
 
-		changeSchema(schema){
-			this._schema = schema;	
-			this.advancedEditor.changeSchema(schema);
-		}
-
-
-		get text(){
-			return this.targetElement.val();
-		}
-
-		get json(){
-			return JSON.parse(this.targetElement.val());
-		}
-
-		get schema(){
-			return this._schema;
-		}
-
-		setJson(json){
-			this.targetElement.val(JSON.stringify(json));
-			this.advancedEditor.setJson(json);
-		}
+		this.initAdvancedEditor({target: this.container, helpText, data, schema, validate, onChange, jsonError});
 
 	}
 
-	window.netjsonEditor = module.exports = NetjsonEditor;
-})();
+	initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
+		this.advancedEditor = new AdvancedEditor({target, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError});
+	}
+
+	changed(onChange){
+		onChange();
+	}
+
+	changeSchema(schema){
+		this._schema = schema;	
+		this.advancedEditor.changeSchema(schema);
+	}
+
+
+	get text(){
+		return this.targetElement.val();
+	}
+
+	get json(){
+		return JSON.parse(this.targetElement.val());
+	}
+
+	get schema(){
+		return this._schema;
+	}
+
+	setJson(json){
+		this.targetElement.val(JSON.stringify(json));
+		this.advancedEditor.setJson(json);
+	}
+
+}
+
+window.netjsonEditor = module.exports = NetjsonEditor;
