@@ -1,6 +1,8 @@
 
 let jsonEditor = require('jsoneditor'),
-	$ = require('jquery');
+	$ = require('jquery'),
+	Ajv = require('ajv'),
+	metaSchema = require('ajv/lib/refs/json-schema-draft-04.json');
 
 require('../themes/tomorrow_night_bright');
 
@@ -47,11 +49,32 @@ class AdvancedJSONEditor {
 
 	render({helpText, options, data}){
 
-		this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), options, data);
+		// code to make sure we use ajv for draft 04 schemas which we need 
+		let ajv = new Ajv({
+			meta: false, // optional, to prevent adding draft-06 meta-schema
+			extendRefs: true, // optional, current default is to 'fail', spec behaviour is to 'ignore'
+			unknownFormats: 'ignore',  // optional, current default is true (fail)
+		});
+
+		ajv.addMetaSchema(metaSchema);
+		ajv._opts.defaultMeta = metaSchema.id;
+
+		// optional, using unversioned URI is out of spec, see https://github.com/json-schema-org/json-schema-spec/issues/216
+		ajv._refs['http://json-schema.org/schema'] = 'http://json-schema.org/draft-04/schema';
+
+		// Optionally you can also disable keywords defined in draft-06
+		ajv.removeKeyword('propertyNames');
+		ajv.removeKeyword('contains');
+		ajv.removeKeyword('const');
+
+		// ajv fixes end here
+
+		this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), {...options, ajv: ajv}, data);
 		this.editor.aceEditor.setOptions({
 			fontSize: 14,
 			showInvisibles: true
 		});
+
 
 		// remove powered by ace link
 		this.element.find('.jsoneditor-menu a').remove();
@@ -104,7 +127,6 @@ class AdvancedJSONEditor {
 	}
 
 	closeEditor(){
-		console.log(this.schemaValid);
 		if(this.validate && this.schemaValid){
 			this.hide();
 		}else{

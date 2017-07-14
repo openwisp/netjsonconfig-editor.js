@@ -20,8 +20,6 @@ class App extends React.Component {
 			key: Date.now(),
 			data: data
 		});
-
-		console.log(this.state);
 	}
 
 	setData(data){

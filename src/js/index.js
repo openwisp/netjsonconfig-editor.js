@@ -60,7 +60,6 @@ class NetjsonEditor{
 	}
 
 	changed(onChange, data){
-		console.log(data);
 		this.targetElement.val(JSON.stringify(data));
 		onChange();
 	}

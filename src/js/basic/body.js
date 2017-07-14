@@ -54,7 +54,6 @@ class BasicBody extends React.Component {
 				values = values.values;
 				this.state.onChange(values);
 			}
-			// console.log(values);
 		});
 	}
 

@@ -41,6 +41,10 @@ var config = {
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=fonts/[name].[ext]'
       }
     ]
   }
