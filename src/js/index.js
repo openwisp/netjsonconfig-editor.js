@@ -12,7 +12,7 @@ class NetjsonEditor{
 		this.targetElement.hide();
 
 		schema = schema? schema: {};
-		this._schema = schema;
+		this.schema = schema;
 
 		validate = !validate? false: true;
 
@@ -65,7 +65,7 @@ class NetjsonEditor{
 	}
 
 	changeSchema(schema){
-		this._schema = schema;	
+		this.schema = schema;	
 		this.advancedEditor.changeSchema(schema);
 		this.basicEditor.setSchema(schema, this.json);
 	}
@@ -87,14 +87,19 @@ class NetjsonEditor{
 		return JSON.parse(this.targetElement.val());
 	}
 
+	set schema(schema){
+		this.hschema = schema;
+	}
+
 	setJson(json){
 		this.targetElement.val(JSON.stringify(json));
 		this.advancedEditor.setJson(json);
 		this.props.data = json;
 		this.basicEditor.setData(json);
 	}
+
 	get schema(){
-		return this._schema;
+		return this.hschema;
 	}
 
 }
