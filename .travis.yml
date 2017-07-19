@@ -5,10 +5,15 @@ cache:
   directories:
     - "node_modules"
 sudo: false
+
 before_install:
-  - npm install eslint babel-eslint eslint-plugin-react babel-cli babel-plugin-transform-object-rest-spread  babel-preset-env babel-preset-stage-0
+  - npm install eslint babel-eslint eslint-plugin-react babel-cli \
+                babel-plugin-transform-object-rest-spread \
+                babel-preset-env babel-preset-stage-0
   - npm run lint
+
 script:
-  - "npm run build"
+  - npm run build
+
 after_script:
   - npm run test
