@@ -39,7 +39,7 @@ class NetjsonEditor{
 
 	render({helpText, data, schema, validate, onChange, jsonError}){
 		this.container = $(`
-				<div class="netjsonconfig-editor"></div>
+				<div class="netjsoneditor-config"></div>
 			`);
 		this.container.insertBefore($(this.targetElement));
 
@@ -48,15 +48,15 @@ class NetjsonEditor{
 	}
 
 	initAdvancedEditor({target, helpText, data, schema, validate, onChange, jsonError}){
-		this.advancedEditor = new AdvancedEditor({target, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError, swapOut: () => this.showBasiceEditor() });
+		var element = $(`<div class="advanced_editor_container"></div>`);
+		element.appendTo($(target));
+		this.advancedEditor = new AdvancedEditor({target: element, helpText, data, schema, validate, onChange, jsonErrorMessage: jsonError, swapOut: () => this.showBasiceEditor() });
 	}
 
 	initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError}){
-		let element = $(`
-		<div id="basic_editor_container">
-		</div>`);
+		let element = $(`<div class="basic_editor_container"></div>`);
 		element.appendTo($(target));
-		this.basicEditor = new BasicEditor({target, helpText, data, schema, validate, onChange, jsonError, container: "basic_editor_container", swapOut: () => this.showAdvancedEditor() });
+		this.basicEditor = new BasicEditor({target, helpText, data, schema, validate, onChange, jsonError, container: element[0], swapOut: () => this.showAdvancedEditor() });
 	}
 
 	changed(onChange, data){
@@ -71,12 +71,15 @@ class NetjsonEditor{
 	}
 
 	showAdvancedEditor(){
+		this.container.children(".basic_editor_container").hide();
 		this.setJson(JSON.parse(this.targetElement.val()));
 		this.advancedEditor.show();
 	}
 
 	showBasiceEditor(){
+		this.container.children(".basic_editor_container").show();
 		this.setJson(JSON.parse(this.targetElement.val()));
+		this.advancedEditor.hide();
 	}
 
 	get text(){

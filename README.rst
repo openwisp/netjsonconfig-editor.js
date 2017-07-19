@@ -62,19 +62,16 @@ Development Setup
 To setup this project for development do the following
 
 1. Fork the repository.
-2. Clone the repository locally using ``git clone``.
+2. Clone the repository locally using ``git clone https://github.com/xxxxxx/netjsonconfig-editor.js.git``.
 3. Enter the local project’s root folder ``cd netjsonconfig-editor.js``
 4. Install javascript dependencies. run ``npm install``
 5. You should be ready to go.
-6. Run ``npm start`` to start the development server to view any of the
+6. Run ``npm run dev`` to start the development server to view any of the
    examples
 7. Run ``npm run build`` to build the library and ``npm run watch`` to
    watch files for changes.
 8. Run ``npm run watch`` to run a watch server to instantly build the
    javascript on change of any files.
-
-Visit `scripts section`_ to see full details on scripts to run for
-various actions during development
 
 Tests
 ~~~~~
@@ -85,4 +82,36 @@ Tests
 
 - netjsonconfig-editor.js uses mocha js as the test framework, chaijs as the assertion library and phantomjs as the virtual DOM for command line tests To get started with
 
-.. _scripts section: #
+API
+------------
+
+The NetjsonConfig Editor is initialised as follows:
+``
+var editor = new netjsonEditor(opts);
+``
+This returns a netjsonconfig editor object which could be used to manipulate and control the editor.
+
+Instance Properties
+~~~~~~~~~~~~~~~
+
+- ``targetElement``:  Reference to the target element specified when initialising the editor
+- ``props``: object containing all options used to initialise the the editor
+- ``container``: reference to the container of the editor within the dom
+- ``schema``: The current schema being used within the editor.
+- ``text``: Returns the data currently being edited within the editor as a json string
+- ``json``: Returns the data currently being edited within the editor as a json object
+
+Instance Methods
+~~~~~~~~~~~~~~~~
+changeSchema():
+    - **params**: ``schema`` *object* of new schema
+    - **returns**: ``null``
+    - **description**: changes the schema being used by the editor and uses the new ``schema`` passed to this method
+setJson():
+    - **params()**: ``json``  *object* to be used as data in the editor
+    - **return**: ``null``
+    - **description**: changes the data in the editor and uses a new ``json`` object as the data
+showBasicEditor():
+    - **params()**: ``null``
+    - **return**: ``null``
+    - **description**: brings the basic editor to focus

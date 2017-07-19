@@ -8,15 +8,6 @@ require('../themes/tomorrow_night_bright');
 
 class AdvancedJSONEditor {
 	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage, swapOut}) {
-		// set constant for advanced mode element id, to be uses all through.
-		this.advanced_el_id = "advanced_editor";
-
-		// create advanced mode element with jQuery and insert into the DOM
-		this.element = $(`
-			<div class="advanced_editor_container full-screen">
-				<div id='${this.advanced_el_id}' class="advanced-mode"></div>
-			</div>`);
-		this.element.appendTo($(target));
 
 		this.swapOut = swapOut;
 		// set message to be used to alertwrong json
@@ -44,10 +35,10 @@ class AdvancedJSONEditor {
 			},
 			schema: schema
 		}
-		this.render({helpText, options, data});
+		this.render({helpText, options, data, target});
 	}
 
-	render({helpText, options, data}){
+	render({helpText, options, data, target}){
 
 		// code to make sure we use ajv for draft 04 schemas which we need 
 		let ajv = new Ajv({
@@ -69,12 +60,15 @@ class AdvancedJSONEditor {
 
 		// ajv fixes end here
 
-		this.editor = new jsonEditor(document.getElementById(this.advanced_el_id), {...options, ajv: ajv}, data);
+		// create advanced mode element with jQuery and insert into the DOM
+		this.element = $("<div class='advanced-mode full-screen'></div>");
+		this.element.appendTo($(target));
+
+		this.editor = new jsonEditor(this.element[0], {...options, ajv: ajv}, data);
 		this.editor.aceEditor.setOptions({
 			fontSize: 14,
 			showInvisibles: true
 		});
-
 
 		// remove powered by ace link
 		this.element.find('.jsoneditor-menu a').remove();
@@ -99,17 +93,16 @@ class AdvancedJSONEditor {
 			that.element.height($(window).height()).width(window.outerWidth);
 		});
 
-		window.scrollTo(0, 0);
 		this.element.hide();
 	}
 
 	show(){
 		$('body').addClass('editor-full');
+		window.scrollTo(0, 0);
 		this.element.show();
 	}
 
 	hide(){
-		this.swapOut();
 		$('body').removeClass('editor-full');
 		this.element.hide();
 	}
@@ -128,12 +121,12 @@ class AdvancedJSONEditor {
 
 	closeEditor(){
 		if(this.validate && this.schemaValid){
-			this.hide();
+			this.swapOut();
 		}else{
 			this.alertInvalidJSON();
 		}
-
 	}
+	
 	/*
 	* Send an aler to indicate json entered is either invalid or does not match the schema
 	*/
