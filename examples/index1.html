@@ -6,7 +6,8 @@
 <body>
 	<div class="container">
 		<div class="text-center">
-			<button class="btn" onclick="setSchema()">Set Schema</button>
+      <button class="btn" onclick="setSchema()">Toggle Schema</button>
+			<button class="btn" onclick="viewData()">View Data</button>
 		</div>
 	</div>
 	<div class="content">
@@ -2437,7 +2438,7 @@
 				    ]
 				}, 
 				onChange: function(){
-					console.log('hello');
+          var worked = true;
 				}, 
 				schema: schema2,
 				validate: true
@@ -2450,7 +2451,8 @@
 			else
 				ee.changeSchema(schema2)
 		}
-
-		console.log(ee);
+    var viewData = function(){
+      alert(JSON.stringify(ee.json, null, 2));
+    }
 </script>
 </html>

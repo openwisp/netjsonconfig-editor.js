@@ -7,8 +7,8 @@ let jsonEditor = require('jsoneditor'),
 require('../themes/tomorrow_night_bright');
 
 class AdvancedJSONEditor {
-	constructor({target, schema, data, helpText, validate, onChange, jsonErrorMessage, swapOut}) {
-
+	constructor({target, schema, data, helpText, validate,
+			onChange, jsonErrorMessage, swapOut}) {
 		this.swapOut = swapOut;
 		// set message to be used to alertwrong json
 		this.setJsonErrorMessage(jsonErrorMessage);
@@ -100,11 +100,13 @@ class AdvancedJSONEditor {
 		$('body').addClass('editor-full');
 		window.scrollTo(0, 0);
 		this.element.show();
+		this.active = true;
 	}
 
 	hide(){
 		$('body').removeClass('editor-full');
 		this.element.hide();
+		this.active = false;
 	}
 
 	changeSchema(schema){

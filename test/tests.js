@@ -64,13 +64,35 @@ describe('Netjson Editor', function() {
                 expect(editor.json).to.be.deep.equals(newJson);
             });
 
-            it("Should have the basicEditor visible on startup", function() {
-                expect(editor.container.children(".basic_editor_container").css("display")).to.not.be.equals('none'); 
+            it("Should have schema equals "+JSON.stringify(newJson)+" when schema is changed to that", function () {
+                editor.changeSchema(newJson);
+                expect(editor.schema).to.be.deep.equals(newJson);
             });
 
-            it("Should have the advancedEditor hidden on startup", function() {
-                expect(editor.container.children(".advanced_editor_container").css("display")).to.be.equals('none'); 
+            describe("Tests When Basic Editor is visible", function(){
+                it("Should have the basicEditor visible on startup", function() {
+                    expect(editor.basicEditor.container.css("display")).to.not.be.equals('none'); 
+                });
+
+                it("Should have the advancedEditor hidden on startup", function() {
+                    expect(editor.advancedEditor.element.css("display")).to.be.equals('none'); 
+                });
             });
+
+            
+            describe("Tests When advanced Editor is visible", function(){
+                beforeEach(function(){
+                    editor.showAdvancedEditor();
+                })
+                it("Should have the basicEditor hidden", function() {
+                    expect(editor.basicEditor.container.css("display")).to.be.equals('none'); 
+                });
+
+                it("Should have the advancedEditor visible", function() {
+                    expect(editor.advancedEditor.element.css("display")).to.not.be.equals('none'); 
+                });
+            });
+
         });
     };
 
@@ -89,7 +111,7 @@ describe('Netjson Editor', function() {
                     ]
                 }, 
                 onChange: function(){
-                    console.log('hello');
+                    var worked = true;
                 }, 
                 schema: {},
                 validate: true
@@ -104,7 +126,7 @@ describe('Netjson Editor', function() {
             man: "hello"
         }, 
         onChange: function(){
-            console.log('hello');
+            var worked = true;
         }
     };
 

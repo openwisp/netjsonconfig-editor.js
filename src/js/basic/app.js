@@ -38,15 +38,15 @@ class App extends React.Component {
 }
 
 const Header = props => {
-	return  (<div className="basic-header">
-				<div className="name">
+	return  (<div className="basic-header row">
+				<div className="name col-md-4">
 					Editor Name Here
 				</div>
-				<div className="label helpText">
+				<div className="label helpText col-md-6">
 					<label className="netjsonconfig-hint" dangerouslySetInnerHTML={{__html: props.helpText}} />
 				</div>
-				<div className="advanced-button-container">
-					<button className="advanced-button" onClick={ () => { props.swapOut() } }>Advanced Mode</button>
+				<div className="advanced-button-container col-md-2">
+					<button className="advanced-button btn" onClick={ () => { props.swapOut() } }>Advanced Mode</button>
 				</div>
 			</div>);
 }

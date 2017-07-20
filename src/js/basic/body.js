@@ -8,7 +8,6 @@ import {setSchema, setOnChange, setBodyKey} from './actions';
 import {schemaReducer, onChangeReducer, bodyKeyReducer} from './reducers';
 import PropTypes from 'prop-types';
 
-
 const MyBaseForm = props => {
 	const { schema, theme, error } = props
 	return (
@@ -39,7 +38,6 @@ class BasicBody extends React.Component {
 		store.dispatch(setOnChange(props.onChange));
 		store.dispatch(setBodyKey(Date.now()));
 
-		
 		this.state = store.getState();
 		this.schema = this.state.schema;
 		this.store = store;
@@ -47,7 +45,6 @@ class BasicBody extends React.Component {
 
 	componentDidMount(){
 		this.store.subscribe(()=>{
-			// this.setState(this.store.getState());
 			this.schema = this.state.schema;
 			let values = this.store.getState().form[this.state.schema.title || "form"];
 			if(values){
@@ -78,9 +75,7 @@ MyBaseForm.propTypes = {
 BasicBody.propTypes = {
 	schema: PropTypes.object,
 	onChange: PropTypes.func,
-	data: PropTypes.object,
-
-
+	data: PropTypes.object
 }
 
 export default BasicBody;

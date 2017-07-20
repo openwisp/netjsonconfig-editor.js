@@ -6,7 +6,8 @@ let AdvancedEditor = require('./advanced/index'),
 require("../css/index.less");
 
 class NetjsonEditor{
-	constructor({target, schema, data, helpText, validate, onChange, jsonError}){
+	constructor({target, schema, data, helpText, 
+			validate, onChange, jsonError}){
 		target = target? target: "#netjsonconfig-area";
 		this.targetElement = $(target);
 		this.targetElement.hide();
@@ -56,7 +57,7 @@ class NetjsonEditor{
 	initBasicEditor({target, helpText, data, schema, validate, onChange, jsonError}){
 		let element = $(`<div class="basic_editor_container"></div>`);
 		element.appendTo($(target));
-		this.basicEditor = new BasicEditor({target, helpText, data, schema, validate, onChange, jsonError, container: element[0], swapOut: () => this.showAdvancedEditor() });
+		this.basicEditor = new BasicEditor({target: element, helpText, data, schema, validate, onChange, jsonError, swapOut: () => this.showAdvancedEditor() });
 	}
 
 	changed(onChange, data){
@@ -71,14 +72,14 @@ class NetjsonEditor{
 	}
 
 	showAdvancedEditor(){
-		this.container.children(".basic_editor_container").hide();
 		this.setJson(JSON.parse(this.targetElement.val()));
+		this.basicEditor.hide();
 		this.advancedEditor.show();
 	}
 
 	showBasiceEditor(){
-		this.container.children(".basic_editor_container").show();
 		this.setJson(JSON.parse(this.targetElement.val()));
+		this.basicEditor.show();
 		this.advancedEditor.hide();
 	}
 

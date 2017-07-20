@@ -35,7 +35,7 @@ values will be used for any option which is not provided.
 3. **data**: The initial content to be populated within the editor on
    initialisation. This option receives a valid json object as
    parameter. *Default*: ``{}``
-4. \*helpText\*\*: This option is used to set the default help text to
+4. **helpText**: This option is used to set the default help text to
    be diaplayed at the top center of both the advanced editor and the
    basic editor. *Default*:
    ``Want learn to use the advanced mode? Consult the  <a href="http://netjsonconfig.openwisp.org/en/stable/general/basics.html" target="_blank">netjsonconfig documentation </a>.``
@@ -62,7 +62,7 @@ Development Setup
 To setup this project for development do the following
 
 1. Fork the repository.
-2. Clone the repository locally using ``git clone https://github.com/xxxxxx/netjsonconfig-editor.js.git``.
+2. Clone the repository locally using ``git clone https://github.com/<your_fork>/netjsonconfig-editor.js.git``.
 3. Enter the local project’s root folder ``cd netjsonconfig-editor.js``
 4. Install javascript dependencies. run ``npm install``
 5. You should be ready to go.
@@ -115,3 +115,7 @@ showBasicEditor():
     - **params()**: ``null``
     - **return**: ``null``
     - **description**: brings the basic editor to focus
+showAdvancedEditor():
+    - **params()**: ``null``
+    - **return**: ``null``
+    - **description**: brings the advanced json editor to focus
