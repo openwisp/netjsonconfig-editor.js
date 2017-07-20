@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Test 1 for jsoneditor</title>
+  <title>Test 1 for jsoneditor</title>
 </head>
 <body>
-	<div class="content">
-		<textarea id="target"></textarea>
-	</div>
+  <div class="content">
+    <textarea id="target"></textarea>
+  </div>
 </body>
 <script type="text/javascript" src="/js/assets/bundle.js"></script>
 <script type="text/javascript">
-		var ee = new netjsonEditor(
-			{
-				target: "#target",
-				helpText: "No text here <b>oh there is</b>", 
-				data: {
-					man: "hello"
-				}, 
-				onChange: function(){
-                    var worked = true;
-				}
-		});
+  var ee = new netjsonEditor(
+    {
+      target: "#target",
+      helpText: "No text here <b>oh there is</b>", 
+      data: {
+        man: "hello"
+      }, 
+      onChange: function(){
+        var worked = true;
+      }
+  });
 </script>
 </html>

@@ -9,7 +9,8 @@ sudo: false
 before_install:
   - npm install eslint babel-eslint eslint-plugin-react babel-cli \
                 babel-plugin-transform-object-rest-spread \
-                babel-preset-env babel-preset-stage-0
+                babel-preset-env babel-preset-stage-0 \
+                eslint-config-google
   - npm run lint
 
 script:

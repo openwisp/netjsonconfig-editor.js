@@ -1,45 +1,45 @@
 .padding{
-	padding: 20px;
+  padding: 20px;
 }
 
 .basic-header{
-	min-height: 50px;
-	background: #df5d43;
-	width: 100%;
-	border: 1px solid #e25438;
-	padding: 10px;
+  min-height: 50px;
+  background: #df5d43;
+  width: 100%;
+  border: 1px solid #e25438;
+  padding: 10px;
 }
 
 .basic-editor{
-	padding: 10px;
+  padding: 10px;
 }
 
 .basic-header .name{
-	color: #fff;
-	font-size: 15pt;
-	font-weight: bold;
-	padding: 5px;
+  color: #fff;
+  font-size: 15pt;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .basic-header .label{
-	font-size: 11pt;
-	padding: 10px;
+  font-size: 11pt;
+  padding: 10px;
 }
 
 .basic-header .label a{
-	cursor: pointer;
+  cursor: pointer;
 }
 .basic-header .advanced-button-container{
-	text-align: left;
+  text-align: left;
 
 }
 
 .advanced-button{
-	background: #5e6569;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 4px;
-	color: #fff !important;
-	cursor: pointer;
+  background: #5e6569;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  color: #fff !important;
+  cursor: pointer;
 }
 

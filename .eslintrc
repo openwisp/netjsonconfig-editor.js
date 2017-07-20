@@ -1,11 +1,5 @@
 {
   "parser": "babel-eslint",
-  "rules": {
-    "strict": 1,
-    "comma-spacing":1,
-    "no-console":0,
-    "indent": ["error", "tab"]
-  },
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": false,
@@ -17,10 +11,23 @@
       "restParams" : true
     }
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "google"],
   "globals": {
   	"require": true,
   	"module": true
+  },
+  "rules": {
+    "strict": 1,
+    "comma-spacing":1,
+    "no-console":0,
+    "indent": ["error", 2],
+    "switch-colon-spacing": [
+      "off", 
+      {
+        "after": true, 
+        "before": false
+      }
+    ]
   },
   "env":{
     "es6": true,        // We are writing ES6 code

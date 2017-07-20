@@ -1,8 +1,5 @@
 
 describe('Netjson Editor', function() {
-    // require('mocha-jsdom')();
-    // var expect = require('chai').expect;
-
     var editor;
 
     function makeSuite(name, opts, tests) {
@@ -19,8 +16,7 @@ describe('Netjson Editor', function() {
 
     var tests = function() {
         describe("Tests", function () {
-
-
+          
             it('Should have a property called props which is an object and is the object passed to the editor\'s constructor', function(){
                 expect(editor).to.have.a.property('props');
                 expect(editor.props).to.be.an('object');
@@ -79,7 +75,6 @@ describe('Netjson Editor', function() {
                 });
             });
 
-            
             describe("Tests When advanced Editor is visible", function(){
                 beforeEach(function(){
                     editor.showAdvancedEditor();
@@ -101,21 +96,21 @@ describe('Netjson Editor', function() {
     });
 
     opts = {
-                data: {
-                   "files": [
-                        {
-                            "path": "the",
-                            "mode": "ysys",
-                            "contents": "ysysy"
-                        }
-                    ]
-                }, 
-                onChange: function(){
-                    var worked = true;
-                }, 
-                schema: {},
-                validate: true
-            };
+        data: {
+           "files": [
+                {
+                    "path": "the",
+                    "mode": "ysys",
+                    "contents": "ysysy"
+                }
+            ]
+        }, 
+        onChange: function(){
+            var worked = true;
+        }, 
+        schema: {},
+        validate: true
+    };
     makeSuite('initialised with '+JSON.stringify(opts)+' object', opts, function(){
         tests();
     });
@@ -133,5 +128,4 @@ describe('Netjson Editor', function() {
     makeSuite('initialised with '+JSON.stringify(opts)+' object', opts, function(){
         tests();
     });
-
 });

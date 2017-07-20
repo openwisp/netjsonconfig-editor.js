@@ -118,7 +118,7 @@ Trying to follow these guidelines is important in order to minimize waste and av
 3. If you want to add a new feature, announce your intentions in the
    `issue tracker <https://github.com/netjson/netjsonconfig-editor.js/issues>`_
 4. Fork this repo and install it by following the instructions in `Development Setup`_
-5. Follow the style convention in use (**TODO**: specify which style conventions)
+5. Follow the style convention in use (`Google JavaScript style guide (ES2015+ version) <https://google.github.io/styleguide/jsguide.html>`_)
 6. Write code
 7. Write tests for your code
 8. Ensure all tests pass
@@ -158,9 +158,12 @@ Tests
 Changelog
 ---------
 
-TODO
+View CHANGELOG_ 
 
 License
 -------
 
 See `LICENSE <https://github.com/netjson/netjsonconfig-editor.js/blob/master/LICENSE>`_.
+
+.. _CHANGELOG: https://github.com/netjson/netjsonconfig-editor.js/blob/master/CHANGELOG.rst
+
