@@ -4,7 +4,7 @@
   "description": "Javascript based UI for editing netjson. contains and advanced mode raw json editor and a GUI based netjson editor. Has inbuilt validation following json-schema standards",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --fix src/js/**.js ",
+    "lint": "eslint --fix src/js/*/*.js",
     "build": "webpack -p",
     "watch": "webpack -d --watch",
     "dev": "webpack-dev-server --colors",
