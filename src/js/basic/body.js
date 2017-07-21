@@ -46,7 +46,7 @@ class BasicBody extends React.Component {
     });
 
     const store = (window.devToolsExtension ?
-      window.devToolsExtension()(createStore) : createStore)(reducer);
+    window.devToolsExtension()(createStore) : createStore)(reducer);
     store.dispatch(setSchema(props.schema));
     store.dispatch(setOnChange(props.onChange));
     store.dispatch(setBodyKey(Date.now()));
@@ -61,8 +61,8 @@ class BasicBody extends React.Component {
   componentDidMount() {
     this.store.subscribe(() => {
       this.schema = this.state.schema;
-      let values = this.store.getState()
-        .form[this.state.schema.title || 'form'];
+      let key = this.state.schema.title || 'form';
+      let values = this.store.getState().form[key];
       if (values) {
         values = values.values;
         this.state.onChange(values);

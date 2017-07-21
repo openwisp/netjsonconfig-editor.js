@@ -12,7 +12,7 @@ class BasicEditor {
    * @constructs BasicEditor
    */
   constructor({target, schema, data, helpText,
-      validate, onChange, jsonError, swapOut}) {
+               validate, onChange, jsonError, swapOut}) {
     this.render({target, schema, data, helpText,
       validate, onChange, jsonError, swapOut});
     this.container = target;

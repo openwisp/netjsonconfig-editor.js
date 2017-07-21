@@ -18,13 +18,13 @@
   },
   "rules": {
     "strict": 1,
-    "comma-spacing":1,
+    "comma-spacing": 1,
     "no-console":0,
     "indent": ["error", 2],
     "switch-colon-spacing": [
-      "off", 
+      "off",
       {
-        "after": true, 
+        "after": true,
         "before": false
       }
     ]

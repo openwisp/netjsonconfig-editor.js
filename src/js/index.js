@@ -34,8 +34,10 @@ class NetjsonEditor {
              target='_blank'>netjsonconfig documentation
           </a>.`;
 
-    this.props = {target, helpText, data, schema,
-      validate, onChange, jsonError};
+    this.props = {
+      target, helpText, data, schema,
+      validate, onChange, jsonError,
+    };
     this.render(this.props);
     this.setJson(data);
   }
@@ -46,34 +48,40 @@ class NetjsonEditor {
   render({helpText, data, schema, validate, onChange, jsonError}) {
     this.container = $(`<div class='netjsoneditor-config'></div>`);
     this.container.insertBefore($(this.targetElement));
-
-    this.initAdvancedEditor({target: this.container, helpText,data,
-      schema,validate, onChange, jsonError});
-    this.initBasicEditor({target: this.container, helpText, data,
-      schema, validate, onChange, jsonError});
+    this.initAdvancedEditor({
+      target: this.container, helpText, data,
+      schema, validate, onChange, jsonError,
+    });
+    this.initBasicEditor({
+      target: this.container, helpText, data,
+      schema, validate, onChange, jsonError,
+    });
   }
   /**
    * Method used to initialise the advanced editor module.
    * @param {Object} props
    */
   initAdvancedEditor({target, helpText, data, schema,
-    validate, onChange, jsonError}) {
+                      validate, onChange, jsonError}) {
     const element = $(`<div class='advanced_editor_container'></div>`);
     element.appendTo($(target));
-    this.advancedEditor = new AdvancedEditor({target: element,
+    this.advancedEditor = new AdvancedEditor({
+      target: element,
       helpText, data, schema, validate, onChange,
       jsonErrorMessage: jsonError,
-      swapOut: () => this.showBasiceEditor()});
+      swapOut: () => this.showBasiceEditor(),
+    });
   }
   /**
    * Method used to initialise the basic editor module.
    * @param {Object} props
    */
   initBasicEditor({target, helpText, data, schema,
-    validate, onChange, jsonError}) {
+                   validate, onChange, jsonError}) {
     const element = $(`<div class='basic_editor_container'></div>`);
     element.appendTo($(target));
-    this.basicEditor = new BasicEditor({target: element,
+    this.basicEditor = new BasicEditor({
+      target: element,
       helpText, data, schema, validate,
       onChange, jsonError,
       swapOut: () => this.showAdvancedEditor()});
