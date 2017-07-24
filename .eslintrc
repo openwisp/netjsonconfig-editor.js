@@ -1,22 +1,40 @@
 {
   "parser": "babel-eslint",
-  "rules": {
-    "strict": 1,
-    "comma-spacing":1,
-    "no-console":0,
-    "indent": ["error", "tab"]
-  },
   "parserOptions": {
-    "sourceType": "script",
+    "sourceType": "module",
     "allowImportExportEverywhere": false,
-    "codeFrame": false
+    "codeFrame": false,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "spread" : true,
+      "restParams" : true
+    }
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended", "google"],
   "globals": {
   	"require": true,
   	"module": true
   },
+  "rules": {
+    "strict": 1,
+    "comma-spacing": 1,
+    "no-console":0,
+    "indent": ["error", 2],
+    "switch-colon-spacing": [
+      "off",
+      {
+        "after": true,
+        "before": false
+      }
+    ]
+  },
   "env":{
-  	"browser":true
-  }
+    "es6": true,        // We are writing ES6 code
+    "browser": true,    // for the browser
+    "commonjs": true    // and use require() for stylesheets
+  },
+  "plugins": [
+    "react"
+  ]
 }
