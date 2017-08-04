@@ -43,3 +43,6 @@
   cursor: pointer;
 }
 
+.basic-header.row{
+  margin: 0px;
+}
