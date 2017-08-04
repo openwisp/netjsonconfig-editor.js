@@ -1,7 +1,5 @@
 const JsonEditor = require('jsoneditor');
 const $ = require('jquery');
-const Ajv = require('ajv');
-const metaSchema = require('ajv/lib/refs/json-schema-draft-04.json');
 
 require('../themes/tomorrow_night_bright');
 
@@ -17,7 +15,7 @@ class AdvancedJSONEditor {
    * @param {object} props - propts containing the configs for the editor
    */
   constructor({target, schema, data, helpText, validate,
-    onChange, jsonErrorMessage, swapOut}) {
+    onChange, jsonErrorMessage, swapOut, ajv}) {
     this.swapOut = swapOut;
     // set message to be used to alertwrong json
     this.setJsonErrorMessage(jsonErrorMessage);
@@ -40,6 +38,7 @@ class AdvancedJSONEditor {
         }
       },
       schema,
+      ajv,
     };
     this.render({helpText, options, data, target});
   }
@@ -50,34 +49,20 @@ class AdvancedJSONEditor {
    * data, target for the editor
    */
   render({helpText, options, data, target}) {
-    // code to make sure we use ajv for draft 04 schemas which we need
-    const ajv = new Ajv({
-      meta: false, // optional, to prevent adding draft-06 meta-schema
-      extendRefs: true, // optional, current default is to 'fail'
-      unknownFormats: 'ignore',  // optional, current default is true (fail)
-    });
-    ajv.addMetaSchema(metaSchema);
-    ajv._opts.defaultMeta = metaSchema.id;
-    // optional, using unversioned URI is out of spec, see https://github.com/json-schema-org/json-schema-spec/issues/216
-    ajv._refs['http://json-schema.org/schema'] = 'http://json-schema.org/draft-04/schema';
-    // optionally you can also disable keywords defined in draft-06
-    ajv.removeKeyword('propertyNames');
-    ajv.removeKeyword('contains');
-    ajv.removeKeyword('const');
     // create advanced mode element with jQuery and insert into the DOM
-    this.element = $('<div class=\'advanced-mode full-screen\'></div>');
-    this.element.appendTo($(target));
+    this.container = $('<div class=\'advanced-mode full-screen\'></div>');
+    this.container.appendTo($(target));
     // init editor
-    this.editor = new JsonEditor(this.element[0], {...options, ajv}, data);
+    this.editor = new JsonEditor(this.container[0], options, data);
     this.editor.aceEditor.setOptions({
       fontSize: 14,
       showInvisibles: true,
     });
     // remove powered by ace link
-    this.element.find('.jsoneditor-menu a').remove();
+    this.container.find('.jsoneditor-menu a').remove();
     const that = this;
     // add controls to the editor header
-    this.element.find('.jsoneditor-menu')
+    this.container.find('.jsoneditor-menu')
         .append($(`<a href="javascript:;" class="jsoneditor-exit">
                        back to normal mode
                    </a>`).click(() => {
@@ -88,9 +73,9 @@ class AdvancedJSONEditor {
                  </label>`);
     // resize event on window
     $(window).resize(() => {
-      that.element.height($(window).height()).width(window.outerWidth);
+      that.container.height($(window).height()).width(window.outerWidth);
     });
-    this.element.hide();
+    this.container.hide();
   }
   /**
    * Used to show the advanced editor.
@@ -98,7 +83,7 @@ class AdvancedJSONEditor {
   show() {
     $('body').addClass('editor-full');
     window.scrollTo(0, 0);
-    this.element.show();
+    this.container.show();
     this.active = true;
   }
   /**
@@ -106,7 +91,7 @@ class AdvancedJSONEditor {
    */
   hide() {
     $('body').removeClass('editor-full');
-    this.element.hide();
+    this.container.hide();
     this.active = false;
   }
   /**
@@ -156,6 +141,19 @@ class AdvancedJSONEditor {
    */
   setJsonErrorMessage(jsonErrorMessage) {
     this.jsonErrorMessage = jsonErrorMessage;
+  }
+
+  /**
+   * Method use to destroy the advanced Editor and free resources
+   * @return {Promise}
+   */
+  destroy() {
+    let that = this;
+    return new Promise((resolve, reject) => {
+      that.container.remove();
+      $(window).unbind('resize');
+      resolve();
+    });
   }
 }
 

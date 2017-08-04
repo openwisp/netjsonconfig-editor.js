@@ -48,7 +48,11 @@ class App extends React.Component {
    */
   render() {
     return (<div className="basic-editor">
-      <Header helpText={this.props.helpText} swapOut={this.props.swapOut} />
+      <Header
+        helpText={this.props.helpText}
+        name={this.props.name}
+        swapOut={this.props.swapOut}
+      />
       <BasicBody
         schema={this.state.schema}
         key={this.state.key}
@@ -66,7 +70,7 @@ class App extends React.Component {
 */
 const Header = (props) => (<div className="basic-header row">
     <div className="name col-md-4">
-        Editor Name Here
+        {props.name}
     </div>
     <div className="label helpText col-md-6">
       <label className="netjsonconfig-hint"
@@ -89,10 +93,12 @@ App.propTypes = {
   helpText: PropTypes.string,
   jsonError: PropTypes.string,
   swapOut: PropTypes.func,
+  name: PropTypes.string,
 };
 
 Header.propTypes = {
   helpText: PropTypes.string,
   swapOut: PropTypes.func,
+  name: PropTypes.string,
 };
 export default App;

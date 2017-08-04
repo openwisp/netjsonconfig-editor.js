@@ -81,7 +81,7 @@ Instance Methods
 ``changeSchema()``
 ##################
 
-- **params**: ``schema`` *object* of new schema
+- **params**: ``schema`` - ``object`` of new schema
 - **returns**: ``null``
 - **description**: changes the schema being used by the editor and uses the new ``schema``
   passed to this method
@@ -89,7 +89,7 @@ Instance Methods
 ``setJson()``
 #############
 
-- **params**: ``json``  *object* to be used as data in the editor
+- **params**: ``json`` - ``object`` to be used as data in the editor
 - **return**: ``null``
 - **description**: changes the data in the editor and uses a new ``json`` object as the data
 
@@ -106,6 +106,34 @@ Instance Methods
 - **params**: ``null``
 - **return**: ``null``
 - **description**: brings the advanced json editor to focus
+
+``validate()``
+#####################
+
+- **params**: ``null``
+- **return**: ``state`` ``boolean``
+- **description**: checks whether data in the editor is valid against schema or not
+
+``on()``
+########
+
+- **params**: ``event`` - ``string`` name of event to listen to, ``callback`` - ``func`` reference of function to be called when the event occurs
+- **description**: Use the ``on`` method of the editor to hook in functions to be called when certain events occur
+
+``off()``
+#########
+
+- **params**: ``null``
+- **description**: Use the ``off`` method of the editor to clear any listeners to any events set previously
+- ``events``: Some of the events currently being emmitted are:
+
+  1. **change**: emmitted when data within the editor changes.
+
+``destroy()``
+#############
+
+- **params**: ``null``
+- **description**: This method can be used to destroy the editor and free up resources allocated.
 
 Contributing
 ------------
@@ -151,6 +179,8 @@ Tests
 - In order to run tests for the code written run the command ``npm run test`` writing tests is
   an essential part of the project.
 
+- Ensure to run a build before trying to run any tests. The tests will fail if you don't.
+
 - All new features added to the editor need to be accompanied with appropriate tests, but also
   ensuring that tets written before do not fail.
 
@@ -165,4 +195,4 @@ See `CHANGELOG <https://github.com/netjson/netjsonconfig-editor.js/blob/master/C
 License
 -------
 
-See `LICENSE <https://github.com/netjson/netjsonconfig-editor.js/blob/master/LICENSE>`_.
+See `LICENSE <https://github.com/openwisp/netjsonconfig-editor.js/blob/master/LICENSE>`_.

@@ -20,7 +20,8 @@ var config = {
         exclude: /node_modules/ ,
         options: {
           failOnWarning: false,
-          failOnError: true
+          failOnError: true,
+          fix: true
         }
       },
       {

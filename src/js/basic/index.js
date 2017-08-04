@@ -11,12 +11,12 @@ class BasicEditor {
    * @param {object} props - properties to initialise the editor UI
    * @constructs BasicEditor
    */
-  constructor({target, schema, data, helpText,
+  constructor({target, schema, data, helpText, name,
                validate, onChange, jsonError, swapOut}) {
     this.render({target, schema, data, helpText,
-      validate, onChange, jsonError, swapOut});
+      validate, onChange, jsonError, swapOut, name});
     this.container = target;
-    this.swapOut = swapOut;
+    this.show();
   }
   /**
    * Method use to hide the Basic Editor
@@ -33,10 +33,21 @@ class BasicEditor {
     this.container.show();
   }
   /**
+   * Method use to destroy the Basic Editor and free resources
+   * @return {Promise}
+   */
+  destroy() {
+    let that = this;
+    return new Promise((resolve, reject) => {
+      ReactDOM.unmountComponentAtNode(that.container[0]);
+      resolve();
+    });
+  }
+  /**
    * Method use to render the Basic Editor
    * @param {object} props - object containing props for the 'App' object
    */
-  render({schema, data, helpText, onChange, jsonError, target, swapOut}) {
+  render({schema, data, helpText, onChange, jsonError, target, swapOut, name}) {
     ReactDOM.render(
       <App
         schema={schema}
@@ -49,6 +60,7 @@ class BasicEditor {
             instance.setSchema(schema, data);
           };
         }}
+        name={name}
         helpText={helpText}
         swapOut={swapOut}
       />,
