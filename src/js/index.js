@@ -37,7 +37,7 @@ class NetjsonEditor {
     };
 
     helpText = helpText? helpText:
-          `Want learn to use the advanced mode? Consult the
+      `Want learn to use the advanced mode? Consult the
           <a href='http://netjsonconfig.openwisp.org/en/stable/general/basics.html'
              target='_blank'>netjsonconfig documentation
           </a>.`;
@@ -86,7 +86,7 @@ class NetjsonEditor {
    * @param {Object} props
    */
   initAdvancedEditor({target, helpText, data, schema, ajv,
-                      validate, onChange, jsonError, name}) {
+    validate, onChange, jsonError, name}) {
     const element = $(`<div class='advanced_editor_container'></div>`);
     element.appendTo($(target));
     this.advancedEditor = new AdvancedEditor({
@@ -102,7 +102,7 @@ class NetjsonEditor {
    * @param {Object} props
    */
   initBasicEditor({target, helpText, data, schema,
-                   validate, onChange, jsonError, name}) {
+    validate, onChange, jsonError, name}) {
     const element = $(`<div class='basic_editor_container'></div>`);
     element.appendTo($(target));
     this.basicEditor = new BasicEditor({
@@ -220,7 +220,6 @@ class NetjsonEditor {
           that.basicEditor.destroy().then(() => {
             that.basicEditor = null;
             resolve(that.json);
-            that = null;
           });
         });
       } else if (that.advancedEditor.active) {
@@ -229,7 +228,6 @@ class NetjsonEditor {
           that.advancedEditor.destroy().then(() => {
             that.advancedEditor = null;
             resolve(that.json);
-            that = null;
           });
         });
       } else {

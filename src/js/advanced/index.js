@@ -63,12 +63,12 @@ class AdvancedJSONEditor {
     const that = this;
     // add controls to the editor header
     this.container.find('.jsoneditor-menu')
-        .append($(`<a href="javascript:;" class="jsoneditor-exit">
+      .append($(`<a href="javascript:;" class="jsoneditor-exit">
                        back to normal mode
                    </a>`).click(() => {
-                     that.closeEditor();
-                   }))
-        .append(`<label id="netjsonconfig-hint">
+        that.closeEditor();
+      }))
+      .append(`<label id="netjsonconfig-hint">
                      ${helpText}
                  </label>`);
     // resize event on window

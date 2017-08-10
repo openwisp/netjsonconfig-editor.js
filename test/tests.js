@@ -8,9 +8,6 @@ describe('Netjson Editor', function() {
                 editor = new netjsonEditor(opts);
             });
             tests();
-            after(function () {
-                console.log("shared after "+name);
-            });
         });
     }
 
@@ -71,7 +68,7 @@ describe('Netjson Editor', function() {
                 });
 
                 it("Should have the advancedEditor hidden on startup", function() {
-                    expect(editor.advancedEditor.element.css("display")).to.be.equals('none'); 
+                    expect(editor.advancedEditor.container.css("display")).to.be.equals('none'); 
                 });
             });
 
@@ -84,7 +81,7 @@ describe('Netjson Editor', function() {
                 });
 
                 it("Should have the advancedEditor visible", function() {
-                    expect(editor.advancedEditor.element.css("display")).to.not.be.equals('none'); 
+                    expect(editor.advancedEditor.container.css("display")).to.not.be.equals('none'); 
                 });
             });
 

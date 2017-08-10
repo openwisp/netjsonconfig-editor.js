@@ -69,22 +69,22 @@ class App extends React.Component {
  * @return {object} HEADER
 */
 const Header = (props) => (<div className="basic-header row">
-    <div className="name col-md-4">
-        {props.name}
-    </div>
-    <div className="label helpText col-md-6">
-      <label className="netjsonconfig-hint"
-        dangerouslySetInnerHTML={{__html: props.helpText}} />
-    </div>
-    <div className="advanced-button-container col-md-2">
-      <button
-        className="advanced-button btn"
-        onClick={() => {
-          props.swapOut();
-        }}
-      >Advanced Mode</button>
-    </div>
-  </div>);
+  <div className="name col-md-4">
+    {props.name}
+  </div>
+  <div className="label helpText col-md-6">
+    <label className="netjsonconfig-hint"
+      dangerouslySetInnerHTML={{__html: props.helpText}} />
+  </div>
+  <div className="advanced-button-container col-md-2">
+    <button
+      className="advanced-button btn"
+      onClick={() => {
+        props.swapOut();
+      }}
+    >Advanced Mode</button>
+  </div>
+</div>);
 
 App.propTypes = {
   schema: PropTypes.object,
