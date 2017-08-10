@@ -58,7 +58,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^4.0.2",
     "css-loader": "^0.28.4",
-    "eslint": "^3.19.0",
+    "eslint": "^4.4.0",
     "eslint-config-google": "^0.9.1",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^7.1.0",

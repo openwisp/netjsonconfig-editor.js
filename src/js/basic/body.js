@@ -46,7 +46,7 @@ class BasicBody extends React.Component {
     });
 
     const store = (window.devToolsExtension ?
-    window.devToolsExtension()(createStore) : createStore)(reducer);
+      window.devToolsExtension()(createStore) : createStore)(reducer);
     store.dispatch(setSchema(props.schema));
     store.dispatch(setOnChange(props.onChange));
     store.dispatch(setBodyKey(Date.now()));
@@ -76,9 +76,9 @@ class BasicBody extends React.Component {
   render() {
     return (<Provider store={this.store}>
       <Liform schema={this.schema}
-      key={this.state.bodyKey}
-      initialValues={this.props.data}
-      baseForm={MyBaseForm} />
+        key={this.state.bodyKey}
+        initialValues={this.props.data}
+        baseForm={MyBaseForm} />
     </Provider>);
   }
   /**
