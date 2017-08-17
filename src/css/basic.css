@@ -1,9 +1,8 @@
 .basic-header{
-  min-height: 50px;
   background: #df5d43;
   width: 100%;
   border: 1px solid #e25438;
-  padding: 10px;
+  padding: 1px;
 }
 
 .basic-editor{
@@ -14,7 +13,7 @@
   color: #fff;
   font-size: 15pt;
   font-weight: bold;
-  padding: 5px;
+  padding: 9px;
 }
 
 .basic-header .label{
@@ -27,6 +26,8 @@
 }
 .basic-header .advanced-button-container{
   text-align: left;
+  padding-left: 0px;
+  padding-right: 0px;
 
 }
 
@@ -45,7 +46,7 @@
 
 .arrayType, .objectType{
   padding: 0px;
-  border: 1px solid #cccccc;
+  border: 1px solid rgba(204, 204, 204, 0.42);
   border-radius: 1px;
   margin: 15px;
   border-top: 2px solid #eee !important;
@@ -58,8 +59,7 @@
 
 .arrayType  > .form-group,  .objectType > .form-group
 {
-  border-top: 0.5px solid rgba(204, 204, 204, 0.42);
-  padding: 2px;
+  padding: 5px;
 }
 
 .baseForm > .arrayType, .baseForm > .objectType{
