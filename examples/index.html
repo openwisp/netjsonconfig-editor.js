@@ -3558,16 +3558,145 @@
 		{
 			target: "#target",
 			data: {
-			   "files": [
-			        {
-			            "path": "/home",
-			            "mode": "123",
-			            "contents": "cert you may know"
-			        }
-			    ]
-			}, 
+    "olsrd2": [
+        {
+            "config_value": "olsr2_common",
+            "config_name": "interface",
+            "ifname": "loopback"
+        }
+    ],
+    "olsrd6": [
+        {
+            "config_value": "lan_2",
+            "config_name": "Interface",
+            "interface": "lan_2"
+        },
+        {
+            "config_value": "vlan24_2",
+            "config_name": "Interface",
+            "interface": "vlan24_2"
+        },
+        {
+            "config_value": "vlan31_2",
+            "config_name": "Interface",
+            "interface": "vlan31_2"
+        }
+    ],
+    "files": [
+        {
+            "mode": "0644",
+            "path": "/etc/rc.local",
+            "contents": "# Put your custom commands here that should be executed once\n# the system init finished. By default this file does nothing.\n/etc/policy_routing.sh\nexit 0\n"
+        },
+        {
+            "mode": "0744",
+            "path": "/etc/policy_routing.sh",
+            "contents": "#!/bin/sh\n# rotte OLSRd1 per ninux\nip rule add to all table 111 pref 4\n# rotte ADSL per nodo Pomezia\nip rule add from 10.40.0.0/24 lookup 113 pref 32768\nip rule add iif lo lookup 113 pref 32768\n# rotte di default per ninux via OLSR\nip rule add from all lookup 112 pref 32769 \n# rotta di default per nodo Pomezia\nip route add default via 10.40.0.9 dev br-lan table 113\n"
+        }
+    ],
+    "interfaces": [
+        {
+            "type": "bridge",
+            "bridge_members": [
+                "eth0.1"
+            ],
+            "name": "lan",
+            "addresses": [
+                {
+                    "proto": "static",
+                    "family": "ipv4",
+                    "address": "10.40.0.11",
+                    "mask": 24,
+                    "gateway": ""
+                },
+                {
+                    "proto": "static",
+                    "family": "ipv6",
+                    "address": "2001:4c00:893b:fede::1",
+                    "mask": 64
+                }
+            ]
+        },
+        {
+            "type": "ethernet",
+            "network": "vlan24",
+            "name": "eth0.24",
+            "addresses": [
+                {
+                    "proto": "static",
+                    "family": "ipv4",
+                    "address": "172.16.40.24",
+                    "mask": 16,
+                    "gateway": ""
+                },
+                {
+                    "proto": "static",
+                    "family": "ipv6",
+                    "address": "2001:4c00:893b:1:40::24",
+                    "mask": 128,
+                    "gateway": ""
+                }
+            ],
+            "description": "NanoBeam AC verso DiegoApriliana"
+        },
+        {
+            "type": "ethernet",
+            "network": "vlan31",
+            "name": "eth0.31",
+            "addresses": [
+                {
+                    "proto": "static",
+                    "family": "ipv4",
+                    "address": "172.16.40.31",
+                    "mask": 16,
+                    "gateway": ""
+                },
+                {
+                    "proto": "static",
+                    "family": "ipv6",
+                    "address": "2001:4c00:893b:1:40::31",
+                    "mask": 128,
+                    "gateway": ""
+                }
+            ],
+            "description": "NanoBeam AC verso RDP"
+        }
+    ],
+    "general": {
+        "maintainer": "nemesis",
+        "description": "ipv6 linklocal: fe80::c24a:ff:fe2d:5fc"
+    },
+    "dns_servers": [
+        "10.11.12.13",
+        "8.8.8.8"
+    ],
+    "olsrd": [
+        {
+            "RtTable": 111,
+            "config_value": "olsrd_common",
+            "config_name": "olsrd",
+            "RtTableDefault": 112,
+            "IpVersion": 4
+        },
+        {
+            "config_value": "lan",
+            "config_name": "Interface",
+            "interface": "lan"
+        },
+        {
+            "config_value": "vlan24",
+            "config_name": "Interface",
+            "interface": "vlan24"
+        },
+        {
+            "config_value": "vlan31",
+            "config_name": "Interface",
+            "interface": "vlan31"
+        }
+    ]
+}, 
 			onChange: function(data){
-                console.log(data);
+                // console.log(data);
 			}, 
 			schema: schema2,
 			validate: true

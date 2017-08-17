@@ -12,9 +12,9 @@ class BasicEditor {
    * @constructs BasicEditor
    */
   constructor({target, schema, data, helpText, name,
-    validate, onChange, jsonError, swapOut}) {
+    validate, onChange, jsonError, swapOut, ajv}) {
     this.render({target, schema, data, helpText,
-      validate, onChange, jsonError, swapOut, name});
+      validate, onChange, jsonError, swapOut, name, ajv});
     this.container = target;
     this.show();
   }
@@ -47,7 +47,8 @@ class BasicEditor {
    * Method use to render the Basic Editor
    * @param {object} props - object containing props for the 'App' object
    */
-  render({schema, data, helpText, onChange, jsonError, target, swapOut, name}) {
+  render({schema, data, helpText, onChange,
+    jsonError, target, swapOut, name, ajv}) {
     ReactDOM.render(
       <App
         schema={schema}
@@ -63,6 +64,7 @@ class BasicEditor {
         name={name}
         helpText={helpText}
         swapOut={swapOut}
+        ajv={ajv}
       />,
       target[0],
     );
