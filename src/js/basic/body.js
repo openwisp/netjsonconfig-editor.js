@@ -2,8 +2,8 @@ import React from 'react';
 import {createStore, combineReducers} from 'redux';
 import {reducer as formReducer, initialize} from 'redux-form';
 import {Provider} from 'react-redux';
-import Liform from 'liform-react';
-import {renderField, DefaultTheme} from 'liform-react';
+import Liform from '../liform/src/index';
+import {renderField, DefaultTheme} from '../liform/src/index';
 import {setSchema, setOnChange, setBodyKey} from './actions';
 import {schemaReducer, onChangeReducer, bodyKeyReducer} from './reducers';
 import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 const MyBaseForm = (props) => {
   const {schema, theme, error} = props;
   return (
-    <div className="padding">
+    <div className="baseForm">
       <div>
         {error && <strong>{error}</strong>}
         {error && <hr />}
@@ -78,7 +78,8 @@ class BasicBody extends React.Component {
       <Liform schema={this.schema}
         key={this.state.bodyKey}
         initialValues={this.props.data}
-        baseForm={MyBaseForm} />
+        baseForm={MyBaseForm}
+        ajv={this.props.ajv} />
     </Provider>);
   }
   /**
@@ -101,6 +102,7 @@ BasicBody.propTypes = {
   schema: PropTypes.object,
   onChange: PropTypes.func,
   data: PropTypes.object,
+  ajv: PropTypes.object,
 };
 
 export default BasicBody;

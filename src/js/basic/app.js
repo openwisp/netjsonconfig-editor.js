@@ -58,7 +58,8 @@ class App extends React.Component {
         key={this.state.key}
         data={this.state.data}
         ref={(instance) => this.__reInit = (data) => instance.setData(data)}
-        onChange={this.props.onChange} />
+        onChange={this.props.onChange}
+        ajv = {this.props.ajv}/>
     </div>);
   }
 }
@@ -89,6 +90,7 @@ const Header = (props) => (<div className="basic-header row">
 App.propTypes = {
   schema: PropTypes.object,
   data: PropTypes.object,
+  ajv: PropTypes.object,
   onChange: PropTypes.func,
   helpText: PropTypes.string,
   jsonError: PropTypes.string,

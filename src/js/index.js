@@ -32,7 +32,7 @@ class NetjsonEditor {
       let json = this.json;
       this.changed(data);
       if (json!==data) {
-        this.eventCallbacks.change();
+        this.eventCallbacks.change(data);
       }
     };
 
@@ -62,6 +62,7 @@ class NetjsonEditor {
       extendRefs: true, // optional, current default is to 'fail'
       unknownFormats: 'ignore', // optional, current default is true (fail),
       allErrors: true,
+      errorDataPath: 'property',
     });
     ajv.addMetaSchema(metaSchema);
     ajv._opts.defaultMeta = metaSchema.id;
@@ -77,7 +78,7 @@ class NetjsonEditor {
       schema, validate, onChange, jsonError, name,
     });
     this.initBasicEditor({
-      target: this.container, helpText, data,
+      target: this.container, helpText, data, ajv,
       schema, validate, onChange, jsonError, name,
     });
   }
@@ -101,7 +102,7 @@ class NetjsonEditor {
    * Method used to initialise the basic editor module.
    * @param {Object} props
    */
-  initBasicEditor({target, helpText, data, schema,
+  initBasicEditor({target, helpText, data, schema, ajv,
     validate, onChange, jsonError, name}) {
     const element = $(`<div class='basic_editor_container'></div>`);
     element.appendTo($(target));
@@ -110,7 +111,7 @@ class NetjsonEditor {
       helpText, data, schema, validate,
       onChange, jsonError,
       swapOut: () => this.showAdvancedEditor(),
-      name,
+      name, ajv,
     });
   }
   /**

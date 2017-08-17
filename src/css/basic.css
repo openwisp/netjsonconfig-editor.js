@@ -1,7 +1,3 @@
-.padding{
-  padding: 20px;
-}
-
 .basic-header{
   min-height: 50px;
   background: #df5d43;
@@ -45,4 +41,47 @@
 
 .basic-header.row{
   margin: 0px;
+}
+
+.arrayType, .objectType{
+  padding: 0px;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  margin: 15px;
+  border-top: 2px solid #eee !important;
+
+}
+
+.arrayType input,.arrayType select,.arrayType textarea, .objectType input,.objectType select,.objectType textarea{
+  border-radius: 0px;
+}
+
+.arrayType  > .form-group,  .objectType > .form-group
+{
+  border-top: 0.5px solid rgba(204, 204, 204, 0.42);
+  padding: 2px;
+}
+
+.baseForm > .arrayType, .baseForm > .objectType{
+  margin: 0px;
+  border: 0px;
+}
+
+.arrayType > legend, .objectType > legend{
+  padding: 15px;
+  color: #666 !important;
+  background-color: #f8f8f8 !important;
+  border-top: 1px solid #eee !important;
+  border-bottom: 1px solid #eee !important;
+  font-size: 16px !important;
+  margin: 0px;
+}
+
+.pull-right{
+  margin-right: 15px;
+  clear: both;
+}
+
+.btn{
+  border-radius: 0px;
 }
