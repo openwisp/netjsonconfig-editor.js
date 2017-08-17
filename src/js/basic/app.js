@@ -70,20 +70,22 @@ class App extends React.Component {
  * @return {object} HEADER
 */
 const Header = (props) => (<div className="basic-header row">
-  <div className="name col-md-4">
+  <div className="name col-md-3">
     {props.name}
   </div>
-  <div className="label helpText col-md-6">
+  <div className="label helpText col-md-7">
     <label className="netjsonconfig-hint"
       dangerouslySetInnerHTML={{__html: props.helpText}} />
   </div>
-  <div className="advanced-button-container col-md-2">
+  <div className="col-md-2 advanced-button-container ">
     <button
-      className="advanced-button btn"
+      className="advanced-button btn btn-block"
       onClick={() => {
         props.swapOut();
       }}
-    >Advanced Mode</button>
+    >
+      Advanced Mode
+    </button>
   </div>
 </div>);
 

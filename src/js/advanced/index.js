@@ -64,6 +64,7 @@ class AdvancedJSONEditor {
     // add controls to the editor header
     this.container.find('.jsoneditor-menu')
       .append($(`<a href="javascript:;" class="jsoneditor-exit">
+                      <span class='advanced-mode-close'></span>
                        back to normal mode
                    </a>`).click(() => {
         that.closeEditor();

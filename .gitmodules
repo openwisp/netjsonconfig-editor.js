@@ -1,0 +1,3 @@
+[submodule "src/js/liform-react"]
+	path = src/js/liform-react
+	url = https://github.com/gastonche/liform-react

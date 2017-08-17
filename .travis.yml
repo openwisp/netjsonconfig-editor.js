@@ -12,6 +12,7 @@ before_install:
                 babel-preset-env babel-preset-stage-0 \
                 eslint-config-google
   - npm run lint
+  - git submodule update --init --recursive
 
 script:
   - npm run build
