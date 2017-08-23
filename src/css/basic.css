@@ -57,9 +57,10 @@
   border-radius: 0px;
 }
 
-.arrayType  > .form-group,  .objectType > .form-group
+.arrayType  .form-group,  .objectType .form-group
 {
   padding: 5px;
+  border-top: 1px solid #cccccc;
 }
 
 .baseForm > .arrayType, .baseForm > .objectType{

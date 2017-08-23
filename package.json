@@ -72,7 +72,6 @@
     "less-loader": "^4.0.5",
     "mocha": "^3.4.2",
     "mocha-phantomjs": "^4.1.0",
-    "npm-run-all": "^4.0.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1"

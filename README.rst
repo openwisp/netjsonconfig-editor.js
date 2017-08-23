@@ -164,15 +164,17 @@ To setup this project for development do the following
 1. Fork the repository.
 2. Clone the repository locally using ``git clone --recursive https://github.com/<your_fork>/netjsonconfig-editor.js.git``. do not forget the ``--recursive`` flag on the command.
 3. Enter the local project’s root folder ``cd netjsonconfig-editor.js``
-4. Install javascript dependencies. run ``npm install``
-5. You should be ready to go.
-6. Run ``npm run dev`` to start the development server to view any of the
+4. inittial all submodules with ``git submodule init``
+5. now update the submodules with ``git submodule update``
+6. Install javascript dependencies. run ``npm install``
+7. You should be ready to go.
+8. Run ``npm run dev`` to start the development server to view any of the
    examples
-7. Run ``npm run build`` to build the library and ``npm run watch`` to
+9. Run ``npm run build`` to build the library and ``npm run watch`` to
    watch files for changes.
-8. Run ``npm run watch`` to run a watch server to instantly build the
+10. Run ``npm run watch`` to run a watch server to instantly build the
    javascript on change of any files.
-
+   
 Tests
 ~~~~~
 
