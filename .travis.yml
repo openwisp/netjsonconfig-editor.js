@@ -10,10 +10,9 @@ before_install:
   - npm install eslint babel-eslint eslint-plugin-react babel-cli \
                 babel-plugin-transform-object-rest-spread \
                 babel-preset-env babel-preset-stage-0 \
-                eslint-config-google
+                eslint-config-google escope
   - npm run lint
-  - git submodule update --init --recursive
-
+  
 script:
   - npm run build
 

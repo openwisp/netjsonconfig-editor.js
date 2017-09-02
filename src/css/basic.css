@@ -9,6 +9,10 @@
   padding: 10px;
 }
 
+.basic-editor *{
+  font-family: arial;
+}
+
 .basic-header .name{
   color: #fff;
   font-size: 15pt;
@@ -55,6 +59,9 @@
 
 .arrayType input,.arrayType select,.arrayType textarea, .objectType input,.objectType select,.objectType textarea{
   border-radius: 0px;
+}
+.arrayType textarea, .objectType textarea{
+  min-height: 150px;
 }
 
 .arrayType  .form-group,  .objectType .form-group
