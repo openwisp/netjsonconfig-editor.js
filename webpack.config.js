@@ -8,8 +8,12 @@ var config = {
   entry: APP_DIR + '/js/index.js',
   output: {
     path: BUILD_DIR,
-    publicPath: "/js/assets/",
+    publicPath: "/",
     filename: 'bundle.js'
+  },
+  devServer: {
+    publicPath: "/",
+    contentBase: "./examples"
   },
   module : {
     loaders : [
@@ -20,7 +24,8 @@ var config = {
         exclude: /node_modules/ ,
         options: {
           failOnWarning: false,
-          failOnError: true
+          failOnError: true,
+          fix: true
         }
       },
       {
@@ -40,7 +45,7 @@ var config = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader?name=fonts/[name].[ext]'
+        loader: 'file-loader?name=fonts/[name].[ext]',
       }
     ]
   }

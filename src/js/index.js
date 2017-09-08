@@ -1,6 +1,8 @@
 let AdvancedEditor = require('./advanced/index');
 let $ = require('jquery');
 let BasicEditor = require('./basic/index');
+const Ajv = require('ajv');
+const metaSchema = require('ajv/lib/refs/json-schema-draft-04.json');
 
 require('../css/index.less');
 /**
@@ -17,26 +19,32 @@ class NetjsonEditor {
   */
   constructor({target = '#netjsonconfig-area',
     schema = {}, data = {}, helpText, jsonError = 'Json entered is invalid',
-    validate = true, onChange = () => {}}) {
+    validate = true, onChange = () => {}, name = 'Netjsonconfig Editor'}) {
     this.targetElement = $(target);
     this.targetElement.hide();
 
     this.schema = schema;
-    let onChangeCb = onChange? onChange: () => {};
+    this.eventCallbacks = {
+      change: onChange,
+    };
 
     onChange = (data) => {
-      this.changed(onChangeCb, data);
+      let json = this.json;
+      this.changed(data);
+      if (json!==data) {
+        this.eventCallbacks.change(data);
+      }
     };
 
     helpText = helpText? helpText:
-          `Want learn to use the advanced mode? Consult the
+      `Want learn to use the advanced mode? Consult the
           <a href='http://netjsonconfig.openwisp.org/en/stable/general/basics.html'
              target='_blank'>netjsonconfig documentation
           </a>.`;
 
     this.props = {
       target, helpText, data, schema,
-      validate, onChange, jsonError,
+      validate, onChange, jsonError, name,
     };
     this.render(this.props);
     this.setJson(data);
@@ -45,24 +53,41 @@ class NetjsonEditor {
    * Method used to render the instance of the editor.
    * @param {Object} props
    */
-  render({helpText, data, schema, validate, onChange, jsonError}) {
+  render({helpText, data, schema, validate, onChange, jsonError, name}) {
     this.container = $(`<div class='netjsoneditor-config'></div>`);
     this.container.insertBefore($(this.targetElement));
+    // code to make sure we use ajv for draft 04 schemas which we need
+    const ajv = new Ajv({
+      meta: false, // optional, to prevent adding draft-06 meta-schema
+      extendRefs: true, // optional, current default is to 'fail'
+      unknownFormats: 'ignore', // optional, current default is true (fail),
+      allErrors: true,
+      errorDataPath: 'property',
+    });
+    ajv.addMetaSchema(metaSchema);
+    ajv._opts.defaultMeta = metaSchema.id;
+    // optional, using unversioned URI is out of spec, see https://github.com/json-schema-org/json-schema-spec/issues/216
+    ajv._refs['http://json-schema.org/schema'] = 'http://json-schema.org/draft-04/schema';
+    // optionally you can also disable keywords defined in draft-06
+    ajv.removeKeyword('propertyNames');
+    ajv.removeKeyword('contains');
+    ajv.removeKeyword('const');
+
     this.initAdvancedEditor({
-      target: this.container, helpText, data,
-      schema, validate, onChange, jsonError,
+      target: this.container, helpText, data, ajv,
+      schema, validate, onChange, jsonError, name,
     });
     this.initBasicEditor({
-      target: this.container, helpText, data,
-      schema, validate, onChange, jsonError,
+      target: this.container, helpText, data, ajv,
+      schema, validate, onChange, jsonError, name,
     });
   }
   /**
    * Method used to initialise the advanced editor module.
    * @param {Object} props
    */
-  initAdvancedEditor({target, helpText, data, schema,
-                      validate, onChange, jsonError}) {
+  initAdvancedEditor({target, helpText, data, schema, ajv,
+    validate, onChange, jsonError, name}) {
     const element = $(`<div class='advanced_editor_container'></div>`);
     element.appendTo($(target));
     this.advancedEditor = new AdvancedEditor({
@@ -70,31 +95,32 @@ class NetjsonEditor {
       helpText, data, schema, validate, onChange,
       jsonErrorMessage: jsonError,
       swapOut: () => this.showBasiceEditor(),
+      name, ajv,
     });
   }
   /**
    * Method used to initialise the basic editor module.
    * @param {Object} props
    */
-  initBasicEditor({target, helpText, data, schema,
-                   validate, onChange, jsonError}) {
+  initBasicEditor({target, helpText, data, schema, ajv,
+    validate, onChange, jsonError, name}) {
     const element = $(`<div class='basic_editor_container'></div>`);
     element.appendTo($(target));
     this.basicEditor = new BasicEditor({
       target: element,
       helpText, data, schema, validate,
       onChange, jsonError,
-      swapOut: () => this.showAdvancedEditor()});
+      swapOut: () => this.showAdvancedEditor(),
+      name, ajv,
+    });
   }
   /**
    * Method Method fired when data in the editor is changed.
-   * @param {func} onChange
    * @param {object} data
    * @callback onChange
    */
-  changed(onChange, data) {
+  changed(data) {
     this.targetElement.val(JSON.stringify(data));
-    onChange();
   }
   /**
    * Method used to change the schema used in all editor modules.
@@ -158,6 +184,57 @@ class NetjsonEditor {
    */
   get schema() {
     return this.hschema;
+  }
+  /**
+  * Function to be used to validate the data within the editor
+  * @return {boolean} valid
+  */
+  validate() {
+    this.setJson(this.json);
+    return this.advancedEditor.schemaValid;
+  }
+  /**
+  * Function to be used to set event listeners within the editor
+  * @param {string} event
+  * @param {func} cb - callback
+  */
+  on(event, cb) {
+    this.eventCallbacks[event] = cb;
+  }
+  /**
+  * Function to be used to clear event listeners within the editor
+  * @param {string} event
+  */
+  off(event) {
+    this.eventCallbacks[event] = () => {};
+  }
+  /**
+  * Function to destroy the editor and free up resources
+  * @return {Promise}
+  */
+  destroy() {
+    let that = this;
+    return new Promise((resolve, reject) => {
+      if (that.basicEditor.active) {
+        that.advancedEditor.destroy().then(() => {
+          that.advancedEditor = null;
+          that.basicEditor.destroy().then(() => {
+            that.basicEditor = null;
+            resolve(that.json);
+          });
+        });
+      } else if (that.advancedEditor.active) {
+        that.basicEditor.destroy().then(() => {
+          that.basicEditor = null;
+          that.advancedEditor.destroy().then(() => {
+            that.advancedEditor = null;
+            resolve(that.json);
+          });
+        });
+      } else {
+        reject();
+      }
+    });
   }
 }
 

@@ -48,13 +48,18 @@ class App extends React.Component {
    */
   render() {
     return (<div className="basic-editor">
-      <Header helpText={this.props.helpText} swapOut={this.props.swapOut} />
+      <Header
+        helpText={this.props.helpText}
+        name={this.props.name}
+        swapOut={this.props.swapOut}
+      />
       <BasicBody
         schema={this.state.schema}
         key={this.state.key}
         data={this.state.data}
         ref={(instance) => this.__reInit = (data) => instance.setData(data)}
-        onChange={this.props.onChange} />
+        onChange={this.props.onChange}
+        ajv = {this.props.ajv}/>
     </div>);
   }
 }
@@ -65,34 +70,39 @@ class App extends React.Component {
  * @return {object} HEADER
 */
 const Header = (props) => (<div className="basic-header row">
-    <div className="name col-md-4">
-        Editor Name Here
-    </div>
-    <div className="label helpText col-md-6">
-      <label className="netjsonconfig-hint"
-        dangerouslySetInnerHTML={{__html: props.helpText}} />
-    </div>
-    <div className="advanced-button-container col-md-2">
-      <button
-        className="advanced-button btn"
-        onClick={() => {
-          props.swapOut();
-        }}
-      >Advanced Mode</button>
-    </div>
-  </div>);
+  <div className="name col-md-3">
+    {props.name}
+  </div>
+  <div className="label helpText col-md-7">
+    <label className="netjsonconfig-hint"
+      dangerouslySetInnerHTML={{__html: props.helpText}} />
+  </div>
+  <div className="col-md-2 advanced-button-container ">
+    <button
+      className="advanced-button btn btn-block"
+      onClick={() => {
+        props.swapOut();
+      }}
+    >
+      Advanced Mode
+    </button>
+  </div>
+</div>);
 
 App.propTypes = {
   schema: PropTypes.object,
   data: PropTypes.object,
+  ajv: PropTypes.object,
   onChange: PropTypes.func,
   helpText: PropTypes.string,
   jsonError: PropTypes.string,
   swapOut: PropTypes.func,
+  name: PropTypes.string,
 };
 
 Header.propTypes = {
   helpText: PropTypes.string,
   swapOut: PropTypes.func,
+  name: PropTypes.string,
 };
 export default App;

@@ -1,24 +1,23 @@
-.padding{
-  padding: 20px;
-}
-
 .basic-header{
-  min-height: 50px;
   background: #df5d43;
   width: 100%;
   border: 1px solid #e25438;
-  padding: 10px;
+  padding: 1px;
 }
 
 .basic-editor{
   padding: 10px;
 }
 
+.basic-editor *{
+  font-family: arial;
+}
+
 .basic-header .name{
   color: #fff;
   font-size: 15pt;
   font-weight: bold;
-  padding: 5px;
+  padding: 9px;
 }
 
 .basic-header .label{
@@ -31,6 +30,8 @@
 }
 .basic-header .advanced-button-container{
   text-align: left;
+  padding-left: 0px;
+  padding-right: 0px;
 
 }
 
@@ -43,3 +44,52 @@
   cursor: pointer;
 }
 
+.basic-header.row{
+  margin: 0px;
+}
+
+.arrayType, .objectType{
+  padding: 0px;
+  border: 1px solid rgba(204, 204, 204, 0.42);
+  border-radius: 1px;
+  margin: 15px;
+  border-top: 2px solid #eee !important;
+
+}
+
+.arrayType input,.arrayType select,.arrayType textarea, .objectType input,.objectType select,.objectType textarea{
+  border-radius: 0px;
+}
+.arrayType textarea, .objectType textarea{
+  min-height: 150px;
+}
+
+.arrayType  .form-group,  .objectType .form-group
+{
+  padding: 5px;
+  border-top: 1px solid #cccccc;
+}
+
+.baseForm > .arrayType, .baseForm > .objectType{
+  margin: 0px;
+  border: 0px;
+}
+
+.arrayType > legend, .objectType > legend{
+  padding: 15px;
+  color: #666 !important;
+  background-color: #f8f8f8 !important;
+  border-top: 1px solid #eee !important;
+  border-bottom: 1px solid #eee !important;
+  font-size: 16px !important;
+  margin: 0px;
+}
+
+.pull-right{
+  margin-right: 15px;
+  clear: both;
+}
+
+.btn{
+  border-radius: 0px;
+}

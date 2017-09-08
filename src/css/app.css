@@ -28,7 +28,9 @@ div.jsoneditor-menu a.jsoneditor-exit {
   color: #000;
   margin-bottom: 1px;
 }
-div.jsoneditor-menu a.jsoneditor-exit img{ margin: -2px 1px 0 0 }
+div.jsoneditor-menu a.jsoneditor-exit:hover{ 
+  text-decoration: none;
+}
 
 .full-screen{
   position: absolute;
@@ -73,4 +75,12 @@ div.jsoneditor-menu a.jsoneditor-exit img{ margin: -2px 1px 0 0 }
 
 .hidden{
   display: none;
+}
+
+
+.advanced-mode-close{
+  height: 12px;
+  width: 14px;
+  display: inline-block;
+  background: url(../assets/img/icon-deletelink.svg)
 }
