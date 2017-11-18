@@ -16,10 +16,18 @@ TODO
 Installation
 ------------
 
+Via npm:
+
+    npm install netjsonconfig-editor.js
+
 TODO
 
 Usage
 -----
+
+Via link script, add:
+
+  <script type="text/javascript" src="node_modules/netjsonconfig-editor.js/dist/js/bundle.js"></script>
 
 To use the editor, include the editor within the view and create a new instance as follows:
 
