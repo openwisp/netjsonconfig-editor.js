@@ -69,25 +69,18 @@ class App extends React.Component {
  * @param {object} props - properties to be used to render the header
  * @return {object} HEADER
 */
-const Header = (props) => (<div className="basic-header row">
-  <div className="name col-md-3">
-    {props.name}
+const Header = (props) => (
+  <div className="row">
+    <div className="col-md-2 advanced-button-container ">
+      <a className="advanced-button btn btn-block"
+        onClick={() => {
+          props.swapOut();
+        }}>
+        Advanced Mode
+      </a>
+    </div>
   </div>
-  <div className="label helpText col-md-7">
-    <label className="netjsonconfig-hint"
-      dangerouslySetInnerHTML={{__html: props.helpText}} />
-  </div>
-  <div className="col-md-2 advanced-button-container ">
-    <button
-      className="advanced-button btn btn-block"
-      onClick={() => {
-        props.swapOut();
-      }}
-    >
-      Advanced Mode
-    </button>
-  </div>
-</div>);
+);
 
 App.propTypes = {
   schema: PropTypes.object,
