@@ -109,7 +109,7 @@ Instance Methods
 - **description**: brings the basic editor to focus
 
 ``showAdvancedEditor()``
-#####################
+########################
 
 - **params**: ``null``
 - **return**: ``null``
