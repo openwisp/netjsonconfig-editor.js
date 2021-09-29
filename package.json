@@ -44,7 +44,7 @@
     "classnames": "^2.2.5",
     "deepmerge": "^1.5.1",
     "jquery": "^3.2.1",
-    "jsoneditor": "^5.7.0",
+    "jsoneditor": "^9.5.6",
     "liform-react": "git://github.com/gastonche/liform-react.git#stable",
     "loadash": "^1.0.0",
     "lodash": "^4.10.0",
